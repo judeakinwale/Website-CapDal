@@ -2,9 +2,9 @@
 
 # temp
 /src/app/(home)/
-/src/components/
+# /src/components/
 /src/modules/
-/src/types/
+# /src/types/
 /src/sample-data/
 /src/store/
 

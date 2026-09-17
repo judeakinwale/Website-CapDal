@@ -1,0 +1,222 @@
+"use client";
+import { LOGO_URL } from "@/constants/assets";
+import { useGetItems } from "@/lib/reactQuery/api";
+import {
+  defaultContactInfo,
+  defaultFooterNavLinks,
+  defaultNavLinks,
+  defaultProjectCategories,
+  defaultSocialLinks,
+} from "@/sample-data";
+import { ContactInfo, ContactInfoType } from "@/types/contact";
+import { DefaultItem, DefaultLinkItem } from "@/types/default";
+import { NavLink } from "@/types/links";
+import { useIsFetching } from "@tanstack/react-query";
+import { ArrowRight, Briefcase, Earth, WholeWord } from "lucide-react";
+import * as FaIcons from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
+import { IconType } from "react-icons/lib";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/common/icon";
+// import { useParams, useSearchParams } from 'next/navigation'
+
+interface FooterLinkItemProps {
+  title: string;
+  href: string;
+  onClick?: () => void;
+}
+
+const FooterLinkItem: React.FC<FooterLinkItemProps> = ({
+  title,
+  href,
+  onClick,
+}) => {
+  return (
+    <li key={title}>
+      <Link
+        className="text-sm font-body-md text-white/70 hover:text-white transition-all"
+        href={href}
+        onClick={onClick}
+      >
+        {title}
+      </Link>
+    </li>
+  );
+};
+
+interface FooterSectionHeader {
+  title: string;
+}
+
+const FooterSectionHeader: React.FC<FooterSectionHeader> = ({ title }) => {
+  return <h4 className="text-white uppercase tracking-widest">{title}</h4>;
+};
+
+const Footer = () => {
+  const isFetching = Boolean(useIsFetching());
+
+  const { data: categories = defaultProjectCategories } =
+    useGetItems<DefaultItem>("/project-category");
+
+  const { data: footerNavLinks = defaultFooterNavLinks } =
+    useGetItems<NavLink>("/navlink/footer");
+  const { data: socialLinks = defaultSocialLinks } =
+    useGetItems<DefaultLinkItem>("/social");
+  const { data: contactInfo = defaultContactInfo } =
+    useGetItems<ContactInfo>("/contact");
+
+  const groupedContactInfo = contactInfo.reduce(
+    (prev: Record<ContactInfoType, ContactInfo[]>, curr: ContactInfo) => {
+      prev[curr.type] = prev[curr.type] || [];
+      prev[curr.type].push(curr);
+      return prev;
+    },
+    {} as Record<ContactInfoType, ContactInfo[]>,
+  );
+
+  return (
+    <div className=" ">
+      <footer className="w-full flex flex-col items-center gap-12 bg-black py-16 text-white/70 border-t border-white/20 ">
+        {/* <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-gutter bg-blue-500"> */}
+        <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 px-4">
+          {/*  */}
+          <div className="w-full sm:col-span-2 flex flex-col gap-6">
+            <Link className="" href="/">
+              <Image
+                alt="Cappa &amp; D'Alberto"
+                className="h-10 w-52 object-contain"
+                width={203}
+                height={40}
+                src={LOGO_URL}
+              />
+            </Link>
+            <p className="font-body-md text-white/80 max-w-xs text-sm">
+              Pioneering Nigeria's construction industry since 1932.
+              Institutional reliability, cinematic scale.
+            </p>
+            <div className="flex gap-4">
+              {/* <Link
+                href={"#"}
+                className="w-10 h-10 shrink-0 flex justify-center items-center rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-all"
+              >
+                <Earth />
+              </Link>
+              <Link
+                href={"#"}
+                className="w-10 h-10 shrink-0 flex justify-center items-center rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-all"
+              >
+                <Briefcase />
+              </Link> */}
+
+              {socialLinks?.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="w-10 h-10 shrink-0 flex justify-center items-center rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-all"
+                >
+                  <Icon name={s.title} />
+                </Link>
+              ))}
+            </div>
+          </div>
+          {/*  */}
+          <div className="flex flex-col gap-4">
+            <FooterSectionHeader title="Solutions" />
+            <ul className="flex flex-col gap-2">
+              {categories?.map((c) => (
+                <FooterLinkItem
+                  key={c.title}
+                  title={c.title}
+                  href={`/projects?category=${c.title}`}
+                />
+              ))}
+            </ul>
+          </div>
+          {/*  */}
+          <div className="flex flex-col gap-4">
+            <FooterSectionHeader title="Company" />
+            <ul className="flex flex-col gap-2">
+              {footerNavLinks?.map((nl) => (
+                <FooterLinkItem
+                  key={nl.title + nl.href}
+                  title={nl.title}
+                  href={nl.href as string}
+                />
+              ))}
+            </ul>
+          </div>
+          {/*  */}
+          <div className="flex flex-col gap-4">
+            <FooterSectionHeader title="Contact" />
+            <ul className="flex flex-col gap-2">
+              <li>
+                {groupedContactInfo.address.map((a) => (
+                  <Link
+                    key={a.title}
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.title)}`}
+                    className="text-sm hover:text-white transition-all"
+                  >
+                    {a.title}
+                  </Link>
+                ))}
+              </li>
+              <li>
+                {groupedContactInfo.phone.map((p) => (
+                  <Link
+                    key={p.title}
+                    href={`tel:${p.title}`}
+                    className="text-sm hover:text-white transition-all"
+                  >
+                    {p.title}
+                  </Link>
+                ))}
+              </li>
+              <li>
+                {groupedContactInfo.email.map((e) => (
+                  <Link
+                    key={e.title}
+                    href={`mailto:${e.title}`}
+                    className="text-sm hover:text-white transition-all"
+                  >
+                    {e.title}
+                  </Link>
+                ))}
+              </li>
+            </ul>
+          </div>
+          {/*  */}
+          <div className="flex flex-col gap-4">
+            <FooterSectionHeader title="Newsletter" />
+            <p className="text-sm">
+              Stay updated with our latest landmark projects.
+            </p>
+            <div className="relative flex">
+              <input
+                className="w-full bg-white/10 border-b border-white/30 text-white p-3 focus:outline-none focus:border-white transition-colors text-sm placeholder:text-white/40"
+                placeholder="Your Email"
+                type="email"
+              />
+              <Button
+                className={
+                  "absolute right-0 h-full flex bg-transparent hover:bg-white/10 cursor-pointer"
+                }
+              >
+                <ArrowRight />
+              </Button>
+            </div>
+          </div>
+        </div>
+        {/*  */}
+        <div className="w-full flex justify-center p-4 border-t border-white/10 text-center">
+          <p className="container text-xs text-white/50">
+            &copy; {new Date().getFullYear()} Cappa &amp; D'Alberto PLC. All
+            Rights Reserved. Built for Nigeria's Future
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Footer;
