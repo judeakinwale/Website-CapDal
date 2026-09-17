@@ -6,7 +6,7 @@
 # /src/app/(home)/about
 /src/app/(home)/careers
 /src/app/(home)/contact
-/src/app/(home)/projects
+# /src/app/(home)/projects
 /src/app/(home)/services
 
 # /src/components/
