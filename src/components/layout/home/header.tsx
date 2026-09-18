@@ -20,6 +20,7 @@ import { LOGO_URL } from "@/constants/assets";
 import { defaultNavLinks } from "@/sample-data";
 import React from "react";
 import { useLenis } from "@/context/lenis";
+import { X, Menu } from "lucide-react";
 
 interface NavLinkContentItemProps extends React.ComponentPropsWithoutRef<"li"> {
   href: string;
@@ -126,6 +127,11 @@ const Header = () => {
   const { data: links = defaultNavLinks } = useGetItems<NavLink>("/navlink");
 
   const [hasScrolled, sethasScrolled] = React.useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
+
+  const toggleMobileNav = () => {
+    setMobileNavOpen(!mobileNavOpen);
+  };
 
   // TODO: look into replacing this with a use state if it is better
   React.useEffect(() => {
@@ -155,7 +161,7 @@ const Header = () => {
       id="top-nav"
     >
       <div className="flex justify-center">
-        <div className="w-full container flex justify-between items-center p-4">
+        <div className="w-full container flex justify-between items-center gap-8 p-4">
           <div className="flex items-center gap-2">
             <Link className="" href="/">
               <Image
@@ -192,8 +198,9 @@ const Header = () => {
               </NavigationMenu>
             </div>
           </div>
+
           <div className="flex justify-center items-center gap-2">
-            <Link href="/contact">
+            <Link href="/contact" className="flex">
               <Button
                 className={cn(
                   "bg-white text-primary text-sm font-bold uppercase hover:bg-black hover:text-white transition-all duration-300",
@@ -202,6 +209,13 @@ const Header = () => {
                 Contact Us
               </Button>
             </Link>
+          </div>
+
+          <div
+            className="flex md:hidden p-2 text-white cursor-pointer"
+            onClick={toggleMobileNav}
+          >
+            {mobileNavOpen ? <X /> : <Menu />}
           </div>
         </div>
       </div>

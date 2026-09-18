@@ -31,7 +31,7 @@ import { useIsFetching } from "@tanstack/react-query";
 import { cn } from "cn";
 import { ChevronDown, Mail, MapPin, Phone, PhoneCall } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,6 +44,7 @@ import { ContactInfo, ContactInfoType } from "@/types/contact";
 import { BsPhone } from "react-icons/bs";
 import { MdPhoneIphone } from "react-icons/md";
 import NewsletterForm from "@/modules/(home)/newsletter-form";
+import NoItemFound from "@/components/common/no-item-found";
 
 const defaultCategory = "All News";
 const defaultNewsCount = 6;
@@ -62,7 +63,7 @@ const NewsComponent = () => {
     useGetItems<NewsCategory>("/news-category");
 
   const [selectedCategory, setselectedCategory] = useState<string>(
-    category || defaultCategory?.toLowerCase(),
+    (category || defaultCategory)?.toLowerCase(),
   );
   const [showAll, setShowAll] = useState<boolean>(false);
 
@@ -123,11 +124,16 @@ const NewsComponent = () => {
     newsHeroSection,
   ];
 
+  React.useEffect(() => {
+    if (!category) return;
+    setselectedCategory(category.toLowerCase());
+  }, [category]);
+
   return (
     <div className="">
       <div className="flex flex-col gap-0">
         {/* hero */}
-        <div className="w-screen h-[50vh] flex justify-center bg-primary/30 text-white overflow-hidden">
+        <div className="w-screen h-[60vh] flex justify-center bg-primary/30 text-white overflow-hidden">
           <div className="w-full flex flex-col gap-12">
             <Hero
               images={nhs?.images!}
@@ -148,8 +154,8 @@ const NewsComponent = () => {
           className="flex justify-center bg-white py-16 text-black/80 overflow-hidden"
         >
           <div className="container flex flex-col items-center gap-12 px-4">
-            <div className="w-full flex justify-between">
-              <div className="flex flex-col items-center gap-4 px-4 border-s-8 border-primary">
+            <div className="w-full flex flex-col md:flex-row gap-4 justify-between">
+              <div className="flex flex-col gap-4 px-4 border-s-8 border-primary">
                 <h3 className="text-primary text-xl font-bold uppercase">
                   <SplitTitle title={nns?.title} separator="" />
                 </h3>
@@ -158,7 +164,7 @@ const NewsComponent = () => {
                 </h6> */}
               </div>
 
-              <div className="flex justify-center items-center gap-4">
+              <div className="flex justify-center items-center gap-4 px-4 py-1 overflow-x-auto">
                 {categories.map((c) => (
                   <span
                     key={c}
@@ -174,18 +180,21 @@ const NewsComponent = () => {
                 ))}
               </div>
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
-              {categoryNews?.map((n, index) => (
-                <SimpleNewsCard // NewsCard
-                  key={n.title + n.publishedAt}
-                  title={n.title}
-                  image={n.image}
-                  tag={n.tag}
-                  publishedAt={n.publishedAt}
-                  link={`/news/${n.id}`}
-                />
-              ))}
-            </div>
+            {!!categoryNews?.length && (
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+                {categoryNews?.map((n, index) => (
+                  <SimpleNewsCard // NewsCard
+                    key={n.title + n.publishedAt}
+                    title={n.title}
+                    image={n.image}
+                    tag={n.tag}
+                    publishedAt={n.publishedAt}
+                    link={`/news/${n.id}`}
+                  />
+                ))}
+              </div>
+            )}
+            {!categoryNews?.length && <NoItemFound text="No News Found" />}
 
             {/* TODO: add pagination instead of show all button */}
             <div

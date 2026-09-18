@@ -4,6 +4,7 @@ import SimpleIdentityCard from "@/components/common/card/simple-identity-card";
 import SimpleProjectCard from "@/components/common/card/simple-project-card";
 import SimpleTimelineCard from "@/components/common/card/simple-timeline-card";
 import Hero from "@/components/common/hero";
+import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton } from "@/components/common/site-button";
 import { SplitTitle } from "@/components/common/text/split-title";
 import { useGetItems } from "@/lib/reactQuery/api";
@@ -28,7 +29,7 @@ import { useIsFetching } from "@tanstack/react-query";
 import { cn } from "cn";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const defaultCategory = "All Projects";
 const defaultProjectCount = 6;
@@ -46,7 +47,7 @@ const Projects = () => {
     useGetItems<ProjectCategory>("/project-category");
 
   const [selectedCategory, setselectedCategory] = useState<string>(
-    category || defaultCategory?.toLowerCase(),
+    (category || defaultCategory)?.toLowerCase(),
   );
   const [showAll, setShowAll] = useState<boolean>(false);
 
@@ -95,11 +96,16 @@ const Projects = () => {
 
   const [pps, phs] = [projectsProjectsSection, projectsHeroSection];
 
+  React.useEffect(() => {
+    if (!category) return;
+    setselectedCategory(category.toLowerCase());
+  }, [category]);
+
   return (
     <div className="">
       <div className="flex flex-col gap-0">
         {/* hero */}
-        <div className="w-screen h-[50dvh] flex justify-center bg-primary/30 text-white overflow-hidden">
+        <div className="w-screen h-[60dvh] flex justify-center bg-primary/30 text-white overflow-hidden">
           <div className="w-full flex flex-col gap-12">
             <Hero
               images={phs?.images!}
@@ -118,8 +124,8 @@ const Projects = () => {
           className="flex justify-center bg-white py-16 text-black/80 overflow-hidden"
         >
           <div className="container flex flex-col items-center gap-12 px-4">
-            <div className="w-full flex justify-between">
-              <div className="flex flex-col items-center gap-4 px-4 border-s-8 border-primary">
+            <div className="w-full flex flex-col md:flex-row gap-4 justify-between">
+              <div className="flex flex-col gap-4 px-4 border-s-8 border-primary">
                 <h3 className="text-primary text-xl font-bold uppercase">
                   <SplitTitle title={pps?.title} separator="" />
                 </h3>
@@ -128,7 +134,7 @@ const Projects = () => {
                 </h6> */}
               </div>
 
-              <div className="flex justify-center items-center gap-4">
+              <div className="flex justify-center items-center gap-4 px-4 py-1 overflow-x-auto">
                 {categories.map((c) => (
                   <span
                     key={c}
@@ -144,21 +150,26 @@ const Projects = () => {
                 ))}
               </div>
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
-              {categoryProjects?.map((d, index) => (
-                <SimpleProjectCard
-                  key={d.title}
-                  title={d.title}
-                  image={d.image}
-                  description={d.description}
-                  category={d.category}
-                  location={d.location}
-                  completedAt={d.completedAt}
-                  className={(index + 2) % 3 === 0 ? "lg:mt-12" : ""}
-                  // link={d.link}
-                />
-              ))}
-            </div>
+            {!!categoryProjects?.length && (
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+                {categoryProjects?.map((d, index) => (
+                  <SimpleProjectCard
+                    key={d.title}
+                    title={d.title}
+                    image={d.image}
+                    description={d.description}
+                    category={d.category}
+                    location={d.location}
+                    completedAt={d.completedAt}
+                    className={(index + 2) % 3 === 0 ? "lg:mt-12" : ""}
+                    // link={d.link}
+                  />
+                ))}
+              </div>
+            )}
+            {!categoryProjects?.length && (
+              <NoItemFound text="No Projects Found" />
+            )}
             <div
               className={cn("flex justify-center", hideShowAllBtn && "hidden ")}
             >

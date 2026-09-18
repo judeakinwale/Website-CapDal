@@ -1,4 +1,4 @@
-import type { Transaction } from "./transaction";
+// import type { Transaction } from "./transaction";
 import { User } from "./user";
 
 export type Wallet = {
@@ -8,8 +8,8 @@ export type Wallet = {
   balance: number;
   userId?: number;
   user?: User;
-  sentTransactions?: Transaction[];
-  receivedTransactions?: Transaction[];
+  // sentTransactions?: Transaction[];
+  // receivedTransactions?: Transaction[];
   createdAt: string;
   updatedAt: string;
 };

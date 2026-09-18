@@ -183,7 +183,7 @@ export const defaultProjects: Project[] = [
     location: "Ikoyi, Lagos",
   },
   {
-    image: "images/imgi_17_pr-seac.jpg",
+    image: "images/bld-seac.jpg",
     category: "Residential",
     blurb: "National Monument",
     title: "Seac Building",
@@ -548,7 +548,7 @@ export const defaultSections: Section[] = [
     section: SiteSections.CAREER_ROLES,
     subTitle: "Opportunities",
     content: "Don't see a role that fits? Send us your portfolio.",
-    links: [{ title: "General Application", url: "/careers/apply" }],
+    links: [{ title: "General Application", url: "" }],
   },
   {
     title: "Ready to shape the future?",

@@ -5,6 +5,7 @@ import SimpleCareersection, {
 } from "@/components/common/card/simple-service-section";
 import Hero from "@/components/common/hero";
 import { Icon } from "@/components/common/icon";
+import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton } from "@/components/common/site-button";
 import { SplitTitle } from "@/components/common/text/split-title";
 import { useGetItems } from "@/lib/reactQuery/api";
@@ -41,7 +42,7 @@ const Careers = () => {
     useGetItems<RoleDivision>("/role-division");
 
   const [selectedDivision, setselectedDivision] = useState<string>(
-    division || defaultDivision?.toLowerCase(),
+    (division || defaultDivision)?.toLowerCase(),
   );
   const [showAll, setShowAll] = useState<boolean>(true);
 
@@ -117,6 +118,11 @@ const Careers = () => {
   const cclsMainImage = ccls?.images?.[0];
   // const cclsMainBulletPoint = ccls?.bulletPoints?.[0];
   // const cclsSideBulletPoints = ccls?.bulletPoints?.slice(1);
+
+  React.useEffect(() => {
+    if (!division) return;
+    setselectedDivision(division.toLowerCase());
+  }, [division]);
 
   return (
     <div className="">
@@ -225,7 +231,7 @@ const Careers = () => {
           className="flex justify-center bg-dark-tertiary py-16 text-white/80 overflow-hidden"
         >
           <div className="container flex flex-col items-center gap-12">
-            <div className="w-full flex flex-col md:flex-row gap-8 md:items-between justify-between">
+            <div className="w-full flex flex-col md:flex-row gap-4 justify-between">
               <div className="flex flex-col gap-4 px-4 border-s-8 border-primary">
                 <h6 className="text-primary text-xs font-semibold uppercase tracking-widest">
                   {crs?.subTitle}
@@ -235,7 +241,7 @@ const Careers = () => {
                 </h3>
               </div>
 
-              <div className="min-w-80 flex justify-center items-center gap-4 overflow-x-scroll md:overflow-x-auto">
+              <div className="flex justify-center items-center gap-4 px-4 py-1 overflow-x-auto">
                 {divisions.map((c) => (
                   <span
                     key={c}
@@ -253,20 +259,26 @@ const Careers = () => {
             </div>
 
             {/* roles list */}
-            <div className="relative w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
-              {divisionRoles?.map((r, index) => (
-                <SimpleRoleCard
-                  key={r.title}
-                  title={r.title}
-                  description={r.description}
-                  division={r.division}
-                  type={r.type}
-                  location={r.location}
-                  image={r.image}
-                  expiresAt={r.expiresAt}
-                />
-              ))}
-            </div>
+            {!!divisionRoles?.length && (
+              <div className="relative w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+                {divisionRoles?.map((r, index) => (
+                  <SimpleRoleCard
+                    key={r.title}
+                    title={r.title}
+                    description={r.description}
+                    division={r.division}
+                    type={r.type}
+                    location={r.location}
+                    image={r.image}
+                    expiresAt={r.expiresAt}
+                  />
+                ))}
+              </div>
+            )}
+
+            {!divisionRoles?.length && (
+              <NoItemFound text="No Roles Available" />
+            )}
 
             <div className="flex flex-col items-center gap-8">
               <div className="text-white/50">{crs.content}</div>

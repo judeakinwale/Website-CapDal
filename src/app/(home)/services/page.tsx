@@ -3,6 +3,7 @@ import SimpleServiceSection, {
   SSVariant,
 } from "@/components/common/card/simple-service-section";
 import Hero from "@/components/common/hero";
+import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton } from "@/components/common/site-button";
 import { useGetItems } from "@/lib/reactQuery/api";
 import { defaultSections, defaultServices } from "@/sample-data";
@@ -59,20 +60,25 @@ const Services = () => {
               <div className="h-1 w-24 bg-primary"></div>
             </div> */}
             {/* services list */}
-            <div className="relative min-h-64 w-full flex flex-col justify-center items-center">
-              {nonCoreServices?.map((n, i) => (
-                <SimpleServiceSection
-                  key={n.title}
-                  title={n.title}
-                  image={n.image}
-                  content={n.content}
-                  description={n.description}
-                  blurb={n.blurb}
-                  bulletPoints={n.bulletPoints}
-                  variant={i % 2 === 0 ? SSVariant.LEFT : SSVariant.RIGHT}
-                />
-              ))}
-            </div>
+            {!!nonCoreServices?.length && (
+              <div className="relative min-h-64 w-full flex flex-col justify-center items-center">
+                {nonCoreServices?.map((n, i) => (
+                  <SimpleServiceSection
+                    key={n.title}
+                    title={n.title}
+                    image={n.image}
+                    content={n.content}
+                    description={n.description}
+                    blurb={n.blurb}
+                    bulletPoints={n.bulletPoints}
+                    variant={i % 2 === 0 ? SSVariant.LEFT : SSVariant.RIGHT}
+                  />
+                ))}
+              </div>
+            )}
+            {!nonCoreServices?.length && (
+              <NoItemFound text="No Services Found" />
+            )}
           </div>
         </div>
         {/* services */}

@@ -4,6 +4,7 @@ import NewsCard from "@/components/common/card/news-card";
 import SimpleNewsCard from "@/components/common/card/simple-news-card";
 import SimpleServiceCard from "@/components/common/card/simple-service-card";
 import Hero, { getCtaVariantByIndex } from "@/components/common/hero";
+import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton, SiteButtonProps } from "@/components/common/site-button";
 import { useGetItems } from "@/lib/reactQuery/api";
 import {
@@ -171,18 +172,23 @@ const Landing = () => {
               </h6>
               <h3 className="text-primary text-4xl font-bold">{hcs?.title}</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
-              {coreServices?.map((n) => (
-                <SimpleServiceCard
-                  key={n.title}
-                  title={n.title}
-                  image={n.image}
-                  description={n.description}
-                  blurb={n.blurb}
-                  link={`/news/${n.id}`}
-                />
-              ))}
-            </div>
+            {!!coreServices?.length && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+                {coreServices?.map((n) => (
+                  <SimpleServiceCard
+                    key={n.title}
+                    title={n.title}
+                    image={n.image}
+                    description={n.description}
+                    blurb={n.blurb}
+                    link={`/news/${n.id}`}
+                  />
+                ))}
+              </div>
+            )}
+            {!coreServices?.length && (
+              <NoItemFound text="No Core Services Found" />
+            )}
           </div>
         </div>
         {/* core services */}
@@ -211,18 +217,23 @@ const Landing = () => {
                 <ArrowUpRight className="h-4 shrink-0" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
-              {featuredProjects?.map((p) => {
-                return (
-                  <FeaturedProjectCard
-                    title={p.title}
-                    image={p.image}
-                    category={p.category}
-                    description={p.description}
-                  />
-                );
-              })}
-            </div>
+            {!!featuredProjects?.length && (
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
+                {featuredProjects?.map((p) => {
+                  return (
+                    <FeaturedProjectCard
+                      title={p.title}
+                      image={p.image}
+                      category={p.category}
+                      description={p.description}
+                    />
+                  );
+                })}
+              </div>
+            )}
+            {!featuredProjects?.length && (
+              <NoItemFound text="No Featured Projects Found" />
+            )}
           </div>
         </div>
         {/* featured projects (our legacy) */}
@@ -239,19 +250,21 @@ const Landing = () => {
               </h6>
               <h3 className="text-primary text-4xl font-bold">{his?.title}</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
-              {// TODO: consider using grid instead for the containing div, update services with this as well
-              news?.map((n) => (
-                <SimpleNewsCard // NewsCard
-                  key={n.title + n.publishedAt}
-                  title={n.title}
-                  image={n.image}
-                  tag={n.tag}
-                  publishedAt={n.publishedAt}
-                  link={`/news/${n.id}`}
-                />
-              ))}
-            </div>
+            {!!news?.length && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
+                {news?.map((n) => (
+                  <SimpleNewsCard // NewsCard
+                    key={n.title + n.publishedAt}
+                    title={n.title}
+                    image={n.image}
+                    tag={n.tag}
+                    publishedAt={n.publishedAt}
+                    link={`/news/${n.id}`}
+                  />
+                ))}
+                {!news?.length && <NoItemFound text="No News Found" />}
+              </div>
+            )}
           </div>
         </div>
         {/* latest news (insights) */}

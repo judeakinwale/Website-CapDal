@@ -106,7 +106,12 @@ const Hero: React.FC<HeroProps> = ({
         {!!cta && <div className="flex flex-col md:flex-row gap-4">{cta}</div>}
       </div>
 
-      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      <div
+        className={cn(
+          "absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 animate-bounce",
+          (!!cta || !!ctaLinks) && !!subTitle && "hidden md:flex",
+        )}
+      >
         {scrollIndicator}
       </div>
     </div>

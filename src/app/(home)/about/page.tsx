@@ -3,6 +3,7 @@ import SimpleDirectorCard from "@/components/common/card/simple-director-card";
 import SimpleIdentityCard from "@/components/common/card/simple-identity-card";
 import SimpleTimelineCard from "@/components/common/card/simple-timeline-card";
 import Hero from "@/components/common/hero";
+import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton } from "@/components/common/site-button";
 import { SplitTitle } from "@/components/common/text/split-title";
 import { useGetItems } from "@/lib/reactQuery/api";
@@ -153,19 +154,24 @@ const About = () => {
               <h2 className="text-4xl font-bold">{ats?.title}</h2>
               <div className="h-1 w-24 bg-primary"></div>
             </div>
-            <div className="relative min-h-64 flex flex-col flex-wrap gap-12 lg:gap-8 justify-center items-center">
-              {timelines?.map((n, i) => (
-                <SimpleTimelineCard
-                  key={n.title}
-                  title={n.title}
-                  icon={n.icon}
-                  content={n.content}
-                  year={n.year}
-                  variant={i % 2 === 0 ? "left" : "right"}
-                />
-              ))}
-              <div className="absolute inset-0 z-0 left-1/2 w-1 -translate-x-1/2 bg-primary"></div>
-            </div>
+            {!!timelines?.length && (
+              <div className="relative min-h-64 flex flex-col flex-wrap gap-12 lg:gap-8 justify-center items-center">
+                {timelines?.map((n, i) => (
+                  <SimpleTimelineCard
+                    key={n.title}
+                    title={n.title}
+                    icon={n.icon}
+                    content={n.content}
+                    year={n.year}
+                    variant={i % 2 === 0 ? "left" : "right"}
+                  />
+                ))}
+                <div className="absolute inset-0 z-0 left-1/2 w-1 -translate-x-1/2 bg-primary"></div>
+              </div>
+            )}
+            {!timelines?.length && (
+              <NoItemFound text="No Timeline Entries Found" />
+            )}
           </div>
         </div>
         {/* timeline */}
@@ -203,18 +209,23 @@ const About = () => {
                 {ads?.subTitle}
               </h6>
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center">
-              {directors?.map((d) => (
-                <SimpleDirectorCard
-                  key={d.title + d.name}
-                  name={d.name}
-                  title={d.title}
-                  image={d.image}
-                  summary={d.summary}
-                  link={d.link}
-                />
-              ))}
-            </div>
+            {!!directors?.length && (
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center items-center">
+                {directors?.map((d) => (
+                  <SimpleDirectorCard
+                    key={d.title + d.name}
+                    name={d.name}
+                    title={d.title}
+                    image={d.image}
+                    summary={d.summary}
+                    link={d.link}
+                  />
+                ))}
+              </div>
+            )}
+            {!directors?.length && (
+              <NoItemFound text="No Director Entries Found" />
+            )}
           </div>
         </div>
         {/* board of directors */}
