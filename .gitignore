@@ -10,7 +10,8 @@
 # /src/app/(home)/services
 # ----
 # /src/components/
-/src/modules/
+# /src/modules/
+/src/modules/wallet
 # /src/types/
 # /src/sample-data/
 /src/store/

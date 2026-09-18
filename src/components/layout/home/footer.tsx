@@ -19,6 +19,7 @@ import Link from "next/link";
 import { IconType } from "react-icons/lib";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/icon";
+import NewsletterForm from "@/modules/(home)/newsletter-form";
 // import { useParams, useSearchParams } from 'next/navigation'
 
 interface FooterLinkItemProps {
@@ -191,20 +192,8 @@ const Footer = () => {
             <p className="text-sm">
               Stay updated with our latest landmark projects.
             </p>
-            <div className="relative flex">
-              <input
-                className="w-full bg-white/10 border-b border-white/30 text-white p-3 focus:outline-none focus:border-white transition-colors text-sm placeholder:text-white/40"
-                placeholder="Your Email"
-                type="email"
-              />
-              <Button
-                className={
-                  "absolute right-0 h-full flex bg-transparent hover:bg-white/10 cursor-pointer"
-                }
-              >
-                <ArrowRight />
-              </Button>
-            </div>
+
+            <NewsletterForm variant="footer" />
           </div>
         </div>
         {/*  */}

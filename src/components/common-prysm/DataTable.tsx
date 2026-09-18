@@ -60,7 +60,7 @@ const DataTable = <T,>({
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -135,7 +135,7 @@ const DataTable = <T,>({
         >
           {(p as number) + 1}
         </Button>
-      )
+      ),
     );
   };
 
@@ -152,7 +152,9 @@ const DataTable = <T,>({
             className="max-w-sm"
           />
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger
+            // asChild
+            >
               <Button variant="outline" className="ml-auto">
                 Columns <ChevronDown />
               </Button>
@@ -191,7 +193,7 @@ const DataTable = <T,>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -210,7 +212,7 @@ const DataTable = <T,>({
                     <TableCell key={cell.id} className="min-w-14">
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -244,7 +246,7 @@ const DataTable = <T,>({
                 {Math.min(
                   (table.getState().pagination.pageIndex + 1) *
                     table.getState().pagination.pageSize,
-                  table.getFilteredRowModel().rows.length
+                  table.getFilteredRowModel().rows.length,
                 )}{" "}
                 of {table.getFilteredRowModel().rows.length}
               </span>{" "}
@@ -253,7 +255,9 @@ const DataTable = <T,>({
             <div className="h-6 w-px bg-white/10"></div>
             <div className="text-xs text-muted-foreground">Per page</div>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger
+              // asChild
+              >
                 <Button variant="outline" className="h-8 px-1.5 rounded-lg">
                   {table.getState().pagination.pageSize} <ChevronDown />
                 </Button>

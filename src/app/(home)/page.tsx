@@ -17,7 +17,7 @@ import { News } from "@/types/news";
 import { Project } from "@/types/project";
 import { Section, SiteSections } from "@/types/section";
 import { Service } from "@/types/service";
-import { Stat } from "@/types/stat";
+import { Stat, StatSection } from "@/types/stat";
 import { Button } from "@base-ui/react";
 import { useIsFetching } from "@tanstack/react-query";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -35,6 +35,13 @@ const Landing = () => {
   const { data: services = defaultServices } = useGetItems<Service>("/service");
   const { data: stats = defaultStats } = useGetItems<Stat>("/stat");
   const { data: sections = defaultSections } = useGetItems<Section>("/section");
+
+  const relevantStats = stats.filter(
+    (s) =>
+      s.section === StatSection.HOME ||
+      s.section === StatSection.GENERAL ||
+      !s.section,
+  );
 
   const coreServices = services?.filter((s) => s.isCore);
   const featuredProjects = projects?.filter((p) => p.isFeatured);
@@ -135,7 +142,7 @@ const Landing = () => {
           className="flex justify-center bg-secondary-alt py-16 text-white/80 overflow-hidden"
         >
           <div className="container flex flex-col md:flex-row justify-between items-center gap-8 px-4 text-center cursor-default">
-            {stats?.map((s) => {
+            {relevantStats?.map((s) => {
               return (
                 <>
                   <div className="w-full flex flex-col gap-4 hover:text-white hover:-translate-y-2 hover:gap-3 transition-all duration-300">

@@ -10,10 +10,12 @@ export enum RoleType {
   TEMPORARY = "Temporary",
 }
 
+export interface RoleDivision extends DefaultItem {}
+
 export interface Role extends DefaultItem {
   title: string;
   description: string;
-  division: string;
+  division: string; // RoleDivision.titlez
   type: RoleType;
   location: string;
   image?: string;

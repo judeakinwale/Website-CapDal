@@ -22,7 +22,7 @@ import { Director } from "@/types/director";
 import { Identity } from "@/types/identity";
 import { Project, ProjectCategory } from "@/types/project";
 import { Section, SiteSections } from "@/types/section";
-import { Stat } from "@/types/stat";
+import { Stat, StatSection } from "@/types/stat";
 import { Timeline } from "@/types/timeline";
 import { useIsFetching } from "@tanstack/react-query";
 import { cn } from "cn";
@@ -49,6 +49,13 @@ const Projects = () => {
     category || defaultCategory?.toLowerCase(),
   );
   const [showAll, setShowAll] = useState<boolean>(false);
+
+  const relevantStats = stats.filter(
+    (s) =>
+      s.section === StatSection.PROJECTS ||
+      s.section === StatSection.GENERAL ||
+      !s.section,
+  );
 
   const categories = [
     defaultCategory,
@@ -92,7 +99,7 @@ const Projects = () => {
     <div className="">
       <div className="flex flex-col gap-0">
         {/* hero */}
-        <div className="w-screen h-screen flex justify-center bg-primary/30 text-white overflow-hidden">
+        <div className="w-screen h-[50dvh] flex justify-center bg-primary/30 text-white overflow-hidden">
           <div className="w-full flex flex-col gap-12">
             <Hero
               images={phs?.images!}
@@ -172,7 +179,7 @@ const Projects = () => {
           className="flex justify-center bg-primary py-16 text-white/80 overflow-hidden"
         >
           <div className="container flex flex-col md:flex-row justify-between items-center gap-8 px-4 text-center cursor-default">
-            {stats?.map((s) => {
+            {relevantStats?.map((s) => {
               return (
                 <>
                   <div className="w-full flex flex-col gap-4 hover:text-white hover:-translate-y-2 hover:gap-3 transition-all duration-300">

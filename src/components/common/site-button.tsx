@@ -14,6 +14,7 @@ export interface SiteButtonProps extends React.ComponentProps<"button"> {
     | "primary"
     | "primary-outline"
     | "slide";
+  // size?: "small" | "default" | "large" | "custom";
   href?: string;
   onClick?: () => void;
   loading?: boolean;
@@ -22,6 +23,7 @@ export const SiteButton: React.FC<SiteButtonProps> = ({
   className,
   children,
   variant = "outline",
+  // size = "default",
   type = "button",
   href,
   onClick,

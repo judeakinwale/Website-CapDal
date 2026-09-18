@@ -82,7 +82,6 @@ const Header: FC = () => {
   const { embeddedWallets, addEmbeddedWallet, setEmbeddedWallets } =
     useEmbeddedWallets();
 
-
   console.log("embeddedWallets", embeddedWallets);
   const mainWallet = embeddedWallets.find((wallet) => wallet.isMain);
   const address = mainWallet?.walletAddress;
@@ -268,7 +267,9 @@ const HamburgerMenu: FC = () => {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+      <SheetTrigger
+      // asChild
+      >
         <Button variant="icon">
           <Menu className="cursor-pointer" color="#ffffffb3" size={20} />
         </Button>
@@ -308,7 +309,10 @@ const HamburgerMenu: FC = () => {
                     <DropdownMenu.Content className="w-40 bg-[#1c1c1c] rounded-xl border border-white/10 overflow-hidden">
                       {l.children?.map((c) => {
                         return (
-                          <SheetClose asChild key={c.title + c.url}>
+                          <SheetClose
+                            // asChild
+                            key={c.title + c.url}
+                          >
                             <DropdownMenu.Item
                               className="border-none"
                               onClick={() => {
@@ -331,7 +335,10 @@ const HamburgerMenu: FC = () => {
                 );
               }
               return (
-                <SheetClose asChild key={l.title + l.url}>
+                <SheetClose
+                  // asChild
+                  key={l.title + l.url}
+                >
                   <Link
                     href={l.url}
                     className={`flex items-center justify-center hover:text-white/70 hover:!bg-white/20 ${
@@ -348,7 +355,9 @@ const HamburgerMenu: FC = () => {
           </div>
 
           <SheetFooter>
-            <SheetClose asChild>
+            <SheetClose
+            // asChild
+            >
               <Button variant="small-dark">Close</Button>
             </SheetClose>
           </SheetFooter>

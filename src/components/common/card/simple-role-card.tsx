@@ -3,7 +3,10 @@ import { ArrowRight, MapPin } from "lucide-react";
 import Link from "next/link";
 import { MdSchedule } from "react-icons/md";
 
-interface SimpleRoleCardProps extends Partial<Role> {}
+interface SimpleRoleCardProps extends Partial<Role> {
+  link?: string;
+  onClick?: () => void;
+}
 
 const SimpleRoleCard: React.FC<SimpleRoleCardProps> = ({
   title,
@@ -11,40 +14,44 @@ const SimpleRoleCard: React.FC<SimpleRoleCardProps> = ({
   division,
   type,
   location,
-  image,
+  // image,
+  link,
+  onClick,
   expiresAt,
 }) => {
-  return (
-    // <Link href={link}>
-    <div className="bg-white/5 hover:bg-white/10 transition-all duration-400 p-10 border-l-4 border-transparent hover:border-primary-container group cursor-pointer">
-      <div className="group bg-white ">
-        <div className="flex justify-between items-center mb-6">
-          <span className="font-body-regular text-label-caps font-normal px-3 py-1 bg-primary-container/20 text-primary-container">
-            {division}
-          </span>
-          <ArrowRight />
+  const renderedCard = (
+    <div
+      className="group w-full h-full flex flex-col justify-between gap-8 bg-white/5 p-9 border-l-4 border-transparent cursor-pointer hover:bg-white/10 hover:border-primary transition-all duration-500"
+      onClick={onClick}
+    >
+      <div className="flex justify-between items-center text-xs">
+        <span className="bg-primary/20 px-3 py-1 text-primary font-semibold">
+          {division}
+        </span>
+        <ArrowRight className="w-6 h-6 shrink-0" />
+      </div>
+
+      <div className="w-full h-full flex flex-col gap-4">
+        <h3 className="text-xl text-white font-semibold">{title}</h3>
+        <p className="font-sm font-light line-clamp-4">{description}</p>
+      </div>
+
+      <div className="flex items-center gap-8 text-white/40 text-sm">
+        <div className="flex items-center gap-2">
+          <MapPin className="w-4 h-4 shrink-0" />
+          {location}
         </div>
-        <h3 className="font-body-regular text-headline-lg text-[24px] font-normal mb-2">
-          {title}
-        </h3>
-        <p className=" text-white/60 font-light mb-8">{description}</p>
-        <div className="flex items-center gap-6 text-white/40 font-body-regular font-normal text-label-caps">
-          <div className="flex items-center gap-2">
-            <MapPin />
-            {location}
-          </div>
-          <div className="flex items-center gap-2">
-            {/* <span className="material-symbols-outlined text-sm" data-icon="schedule">
-            schedule
-          </span>{" "} */}
-            <MdSchedule />
-            {type}
-          </div>
+        <div className="flex items-center gap-2">
+          <MdSchedule className="w-4 h-4 shrink-0" />
+          {type}
         </div>
       </div>
     </div>
-    // </Link>
   );
+
+  if (link) return <Link href={link}>{renderedCard}</Link>;
+
+  return renderedCard;
 };
 
 export default SimpleRoleCard;

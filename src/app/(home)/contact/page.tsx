@@ -97,6 +97,8 @@ const Contact = () => {
     {} as Record<ContactInfoType, ContactInfo[]>,
   );
 
+  const mainAddress = groupedContactInfo["address"]?.[0]?.title;
+
   const contactHeadquartersSection =
     sections.find((s) => s.section === SiteSections.CONTACT_HEADQUARTERS) ||
     ({} as Section);
@@ -129,9 +131,10 @@ const Contact = () => {
             <Hero
               images={chs?.images!}
               title={chs?.title}
-              blurb={chs?.blurb}
+              blurb={<span className="text-primary">{chs?.blurb}</span>}
               subTitle={chs?.subTitle}
               ctaLinks={chs?.links}
+              cta={<div className="w-1/5 min-w-40 h-1 bg-primary"></div>}
             />
           </div>
         </div>
@@ -144,7 +147,7 @@ const Contact = () => {
         >
           <div className="container grid grid-cols-1 lg:grid-cols-12 gap-8 px-4 bg-primary/0">
             {/* form */}
-            <div className="w-full col-span-8 flex flex-col gap-8 bg-white p-4 lg:p-8 border">
+            <div className="lg:col-span-8 w-full flex flex-col gap-8 bg-white p-4 lg:p-8 border">
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-12"
@@ -213,8 +216,8 @@ const Contact = () => {
             {/* form */}
 
             {/* headquarters */}
-            <div className="col-span-4 flex flex-col gap-8">
-              <div className="flex flex-col gap-12 bg-black p-4 lg:p-8 text-white/80">
+            <div className="lg:col-span-4 w-full flex flex-col gap-8">
+              <div className="flex flex-col gap-12 bg-dark-tertiary p-4 lg:p-8 text-white/80">
                 <div className="flex flex-col gap-4 text-white">
                   <h4 className="text-3xl font-bold">{chqs?.title}</h4>
                   {/* <h6 className="text-white/50 text-xs font-semibold uppercase tracking-widest">
@@ -320,7 +323,7 @@ const Contact = () => {
                 <img
                   alt={chqs?.images?.[0]?.description}
                   src={chqs?.images?.[0]?.url}
-                  className="w-full h-full object-cover bg-black/10"
+                  className="w-full max-h-16 object-cover bg-black/10"
                 />
               </div>
             </div>
@@ -332,10 +335,20 @@ const Contact = () => {
         {/* address maps */}
         <div
           id="address-maps"
-          className="flex justify-center bg-primary py-16 text-white/80 overflow-hidden"
+          className="flex justify-center bg-primary text-white/80 overflow-hidden"
         >
-          <div className="container flex flex-col md:flex-row justify-between items-center gap-8 px-4 text-center cursor-default">
-            {"test_content"}
+          <div className="w-full h-125 flex flex-col md:flex-row justify-between items-center gap-8 text-center cursor-default">
+            {mainAddress && (
+              <iframe
+                // width="450"
+                // height="250"
+                // frameBorder="0"
+                className="w-full h-full"
+                referrerPolicy="strict-origin-when-cross-origin"
+                src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&api=1&q=${encodeURIComponent(mainAddress)}`}
+                allowFullScreen
+              ></iframe>
+            )}
           </div>
         </div>
         {/* address maps */}

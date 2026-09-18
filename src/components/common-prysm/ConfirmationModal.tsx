@@ -121,7 +121,7 @@ export function ConfirmationModal({
           variant="outline"
           className={cn(
             "flex-1 bg-neutral-800 text-white hover:bg-neutral-700",
-            cancelButtonClassName
+            cancelButtonClassName,
           )}
           onClick={onCancel}
         >
@@ -131,7 +131,7 @@ export function ConfirmationModal({
           className={cn(
             "flex-1 text-white",
             config.confirmColor,
-            confirmButtonClassName
+            confirmButtonClassName,
           )}
           onClick={onConfirm}
         >
@@ -144,7 +144,11 @@ export function ConfirmationModal({
   if (trigger) {
     return (
       <Dialog>
-        <DialogTrigger asChild>{trigger}</DialogTrigger>
+        <DialogTrigger
+        // asChild
+        >
+          {trigger}
+        </DialogTrigger>
         {content}
       </Dialog>
     );

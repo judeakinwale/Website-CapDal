@@ -1,16 +1,16 @@
-import { Certificate } from "@/types/certification";
+import { Certificate } from "@/types/certificate";
 import { ContactInfo, ContactInfoType } from "@/types/contact";
 import { DefaultItem, DefaultLinkItem } from "@/types/default";
 import { Director } from "@/types/director";
 import { NavLink, SocialLink } from "@/types/links";
 import { Identity, IdentityType } from "@/types/identity";
-import { News } from "@/types/news";
+import { News, NewsCategory } from "@/types/news";
 import { Project, ProjectCategory } from "@/types/project";
 import { Section, SiteSections } from "@/types/section";
 import { Service } from "@/types/service";
-import { Stat } from "@/types/stat";
+import { Stat, StatSection } from "@/types/stat";
 import { Timeline } from "@/types/timeline";
-import { Role, RoleType } from "@/types/role";
+import { Role, RoleDivision, RoleType } from "@/types/role";
 
 export const defaultNavLinks: NavLink[] = [
   { title: "Home", href: "/", order: 1 },
@@ -61,6 +61,14 @@ export const defaultProjectCategories: ProjectCategory[] = [
   { title: "Industrial" },
 ];
 
+export const defaultNewsCategories: NewsCategory[] = [
+  { title: "Projects" },
+  { title: "Awards" },
+  { title: "Sustainability" },
+  { title: "Community" },
+  { title: "Innovation" },
+];
+
 export const defaultSocialLinks: SocialLink[] = [
   { title: "FaGlobeAfrica", href: "https://www.capdal.com" },
   {
@@ -74,6 +82,9 @@ export const defaultContactInfo: ContactInfo[] = [
   { type: ContactInfoType.ADDRESS, title: "72 Campbell Street, Lagos Island" },
   { type: ContactInfoType.PHONE, title: "+234 (0)902 322 0000" },
   { type: ContactInfoType.EMAIL, title: "capdal@capdal.com" }, // info@capdal.com
+
+  { type: ContactInfoType.MEDIA_PHONE, title: "+234 (0)902 322 0000" },
+  { type: ContactInfoType.MEDIA_EMAIL, title: "info@capdal.com" },
 ];
 
 export const defaultNews: News[] = [
@@ -81,6 +92,7 @@ export const defaultNews: News[] = [
     title:
       "Innovating the Skyline: Cappa & D'Alberto's Approach to Sustainable Skyscraper Design",
     tag: "Corporate",
+    category: "Sustainability",
     publishedAt: "April 12, 2024",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuA2ZC8m8aZYLhHdIu3UfKY9bRQRSO1aY7pn_QgRXiDYMvm_9wGRSGtmczwLp8DzIEx99zA9WLrPxPFkG55UqATWRFKGLdI8M4tSrSI3xasTEdOumZKy5mmDwEa17mK6H53EIM955JLtCzDG0EFjDF1qlCm9KD_3UBkKyGW_dEZ8YPO7mhh86nj7KcukTRuINSdKeZIZGXW65MUph8I6Og4HJvAQkD_Y0Jbx2eb1ctPIuSX4V3ghBH_zZFoY97f8ztPeRd8X0h0IU-nX",
@@ -90,6 +102,7 @@ export const defaultNews: News[] = [
     title:
       "The Future of Infrastructure: Integrating MEP Systems in Mega-Scale Projects",
     tag: "Engineering",
+    category: "Projects",
     publishedAt: "March 28, 2024",
     image: "/images/bld-afrexim.png",
     body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi consequuntur ducimus voluptatem tempore blanditiis excepturi fuga quisquam accusamus corporis reprehenderit!",
@@ -98,6 +111,7 @@ export const defaultNews: News[] = [
     title:
       "Restoring a Legend: Inside the Multi-Phase Revitalization of the National Theatre",
     tag: "Awards",
+    category: "Projects",
     publishedAt: "March 05, 2024",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuB9QGdopFOgSQEvlbztKXZufNTmia_5MGQTmKgzkjGN5UTKeEPuKZqYaKOltlkSjRKftbuqe0tsaKzawX6Lg5_RkIZGEc8rIO4o66eLZsQqSEe4ttUC1i0adNAanCRYb8dM30ytBlolSvLUduRlo2Xo_aSK6vJcq9DJ7ry_Bv_81wW6D1Iz-6KRNBuhNrg8m57N9n7RVLOc_nNIPuqtowpSS5If3nPDvl8sodOda8pzA3pERZ_gaK2uk4k_ov5yBldjl14FHM3HBgFT",
@@ -289,10 +303,14 @@ export const defaultCoreServices: Service[] = [
 export const defaultServices: Service[] = [...defaultCoreServices];
 
 export const defaultStats: Stat[] = [
-  { title: "Years of Excellence", value: "90+" },
-  { title: "Projects Delivered", value: "500+" },
-  { title: "Professionals", value: "1,000+" },
-  { title: "States in Nigeria ", value: "36" },
+  { title: "Years of Excellence", value: "90+", section: StatSection.GENERAL },
+  { title: "Active Staff", value: "12k+", section: StatSection.CAREERS },
+  { title: "Projects Delivered", value: "500+", section: StatSection.GENERAL },
+  { title: "Professionals", value: "1,000+", section: StatSection.HOME },
+  { title: "Skilled Workforce", value: "12k+", section: StatSection.PROJECTS },
+  { title: "States in Nigeria ", value: "36", section: StatSection.HOME },
+  { title: "States Covered ", value: "36", section: StatSection.PROJECTS },
+  { title: "Global ESG Rating ", value: "Top 5", section: StatSection.CAREERS },
 ];
 
 // TODO: replace image and alt image with an array of SectionImage each with url and description (specifically for hero images)
@@ -482,33 +500,29 @@ export const defaultSections: Section[] = [
   },
   // ------------------------------------------------------------------------
   {
-    title: "Build Your Legacy With Nigeria's Engineering Leader",
-    section: SiteSections.CAREER_CULTURE,
-    subTitle:
-      "Join a 90-year tradition of excellence and shape the skyline of tomorrow. We are seeking visionaries to redefine the standards of modern construction.",
-    content: "",
-    images: [
-      {
-        description: "Culture Image",
-        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1iO5qVArisQcqnob6yPB9IwKqPecv4dp_mDfG5fAyyxt-uNMv809aiqBt_yrncFunXqMUgcDhZGusROsJoIZerr_i1Qfd1ZKOkvBVlQcc1DfEf1wFV7QKaeZ9oji7EExaR_4TV0ZnV96SKF409we2AyWHV1RneWrzI7hL3iHbFI0R6IXb36Ge-29AS-yWcT4qeAB6iLbJN5UWP1GRaccEzpy4lm1-mG9r4H-CzTw7ZG9nEoOE_BDbYw89RqK6Lhc2Gc1ZSdgLIyhu",
-      },
-    ],
-    links: [
-      { title: "View Open Roles", url: "#carrer-roles" },
-      { title: "Our Culture", url: "#carrer-culture" },
-    ],
+    title: "Olumide A., Project Lead",
+    section: SiteSections.CAREER_CULTURE_QUOTE,
+    content:
+      "We don't just build structures; we build careers that last generations.",
   },
   {
     title: "Professionalism, Mentorship, and Unrivaled Impact.",
-    section: SiteSections.CAREER_CULTURE_QUOTE,
+    section: SiteSections.CAREER_CULTURE,
     subTitle: "Life At Capdal",
     content: "",
-    bulletPoints: [
+    images: [
       {
-        title: "Olumide A., Project Lead",
         description:
-          "We don't just build structures; we build careers that last generations.",
+          "A professional engineering team reviewing a detailed 3D architectural model.",
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuC1iO5qVArisQcqnob6yPB9IwKqPecv4dp_mDfG5fAyyxt-uNMv809aiqBt_yrncFunXqMUgcDhZGusROsJoIZerr_i1Qfd1ZKOkvBVlQcc1DfEf1wFV7QKaeZ9oji7EExaR_4TV0ZnV96SKF409we2AyWHV1RneWrzI7hL3iHbFI0R6IXb36Ge-29AS-yWcT4qeAB6iLbJN5UWP1GRaccEzpy4lm1-mG9r4H-CzTw7ZG9nEoOE_BDbYw89RqK6Lhc2Gc1ZSdgLIyhu",
       },
+    ],
+    bulletPoints: [
+      // {
+      //   title: "Olumide A., Project Lead",
+      //   description:
+      //     "We don't just build structures; we build careers that last generations.",
+      // },
       {
         title: "Engineering Precision",
         icon: "MdOutlineArchitecture",
@@ -556,8 +570,8 @@ export const defaultSections: Section[] = [
       },
     ],
     links: [
-      { title: "View Open Roles", url: "#carrer-roles" },
-      { title: "Our Culture", url: "#carrer-culture" },
+      { title: "View Open Roles", url: "/careers#roles" },
+      { title: "Our Culture", url: "/careers#culture" },
     ],
   },
   // ------------------------------------------------------------------------
@@ -591,10 +605,6 @@ export const defaultSections: Section[] = [
         description: "News & Media Hero Image",
         url: "https://lh3.googleusercontent.com/aida-public/AB6AXuASxoIlclcp4Zu1KzE-nZi-SxMbEjMFMpRGcZc0ZRmzSosnXlXyizDTaBR4f55fzDx_QX2NZwIZZNo1j-_5lpMch-6cGc1QZFHPtbkpn69k2zveI4DH4_hgDjQXCsI0vyjh3NHt0tQ_tXiO9leLNVcv5TkmmpvUc2It40hkGKCqMY-F_NKwtO-AiAa7M46t4Rpd2Jx_aT9SRWdrjLfCDHC4Vt4AiG1-5WJ3OBMXy48c4gIYOTjktuaUw_4mpE55bg6lMGlKC1x_jYOQ",
       },
-    ],
-    links: [
-      { title: "View Open Roles", url: "#carrer-roles" },
-      { title: "Our Culture", url: "#carrer-culture" },
     ],
   },
 ];
@@ -764,6 +774,14 @@ export const defaultTimelines: Timeline[] = [
     content:
       "Pioneering sustainable construction methods and AI-driven project management.",
   },
+];
+
+export const defaultRoleDivisions: RoleDivision[] = [
+  { title: "Engineering" },
+  { title: "Project Management" },
+  { title: "Skilled Trades" },
+  { title: "Corporate" },
+  { title: "Division" },
 ];
 
 export const defaultRoles: Role[] = [

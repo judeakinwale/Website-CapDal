@@ -32,7 +32,7 @@ interface NotificationItem {
 
 // TODO: review this works as expected
 const convertTokenDeploymentEventToTokenCardProps = (
-  token: TokenDeploymentEvent
+  token: TokenDeploymentEvent,
 ): TokenCardProps => {
   return {
     name: token.tokenName,
@@ -63,25 +63,29 @@ const convertTokenDeploymentEventToTokenCardProps = (
 };
 
 const convertWatchlistItemToTokenCardProps = (
-  item: WatchlistItem & { tokenData?: any }
+  item: WatchlistItem & { tokenData?: any },
 ): TokenCardProps => {
   return {
     name: item.name,
     ticker: item.symbol,
-    value: item.tokenData?.currentPrice !== undefined
-      ? item.tokenData.currentPrice.toString()
-      : "0",
-    change: item.tokenData?.priceChange24h !== undefined
-      ? item.tokenData.priceChange24h.toString()
-      : undefined,
+    value:
+      item.tokenData?.currentPrice !== undefined
+        ? item.tokenData.currentPrice.toString()
+        : "0",
+    change:
+      item.tokenData?.priceChange24h !== undefined
+        ? item.tokenData.priceChange24h.toString()
+        : undefined,
     icon: item.imageURI ?? "",
     pairAddress: item.tokenAddress,
-    volume: item.tokenData?.volume24h !== undefined
-      ? item.tokenData.volume24h.toString()
-      : undefined,
-    marketCap: item.tokenData?.currentMcap !== undefined
-      ? item.tokenData.currentMcap.toString()
-      : undefined,
+    volume:
+      item.tokenData?.volume24h !== undefined
+        ? item.tokenData.volume24h.toString()
+        : undefined,
+    marketCap:
+      item.tokenData?.currentMcap !== undefined
+        ? item.tokenData.currentMcap.toString()
+        : undefined,
     snipers: undefined,
     insiders: undefined,
     topTenHolders: undefined,
@@ -96,9 +100,7 @@ const WatchList: FC = () => {
   const router = useRouter();
   const { watchlist, loading, refreshWatchlist } = useWatchlist();
 
-  const cleanedWatchlist = watchlist.map(
-    convertWatchlistItemToTokenCardProps
-  );
+  const cleanedWatchlist = watchlist.map(convertWatchlistItemToTokenCardProps);
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
@@ -113,7 +115,9 @@ const WatchList: FC = () => {
 
   return (
     <Sheet onOpenChange={handleOpenChange}>
-      <SheetTrigger asChild>
+      <SheetTrigger
+      // asChild
+      >
         <Button variant="icon">
           <Image
             src="/icons/star-light.svg"
@@ -160,7 +164,10 @@ const WatchList: FC = () => {
             )}
             {cleanedWatchlist?.map((item) => (
               <SheetClose key={item.pairAddress} className="">
-                <TokenCard {...item} onClick={() => handleCardClick(item.pairAddress!)} />
+                <TokenCard
+                  {...item}
+                  onClick={() => handleCardClick(item.pairAddress!)}
+                />
               </SheetClose>
             ))}
           </div>

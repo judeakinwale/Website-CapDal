@@ -85,7 +85,9 @@ function ListItem({
 }: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
   return (
     <li {...props}>
-      <NavigationMenuLink asChild>
+      <NavigationMenuLink
+      // asChild
+      >
         <Link href={href}>
           <div className="flex flex-col gap-1 text-sm">
             <div className="leading-none font-medium">{title}</div>
@@ -122,7 +124,7 @@ const Header = () => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
-              asChild
+              // asChild
               className={navigationMenuTriggerStyle()}
             >
               <Link href="/docs">Documentation</Link>
@@ -163,7 +165,7 @@ const Header = () => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink
-              asChild
+              // asChild
               className={navigationMenuTriggerStyle()}
             >
               <Link href="/docs">Docs</Link>
