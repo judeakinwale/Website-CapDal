@@ -9,7 +9,8 @@ import {
 import { RequestInit } from "next/dist/server/web/spec-extension/request";
 import { tryStringify } from "@/utils/json";
 
-const BASE_URL = process.env.NEXT_API_BASE_URL || "http://localhost:3001";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
 
 // no initial fetch or refetch without explicit refetch
 export const noUpdateQueryArgs: Partial<
