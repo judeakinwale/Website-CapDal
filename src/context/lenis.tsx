@@ -15,9 +15,10 @@ export const LenisProvider: React.FC<{ children: React.ReactNode }> = ({
     if (!getWindow() || lenisRef.current) return;
 
     lenisRef.current = new Lenis({
-      duration: 1.0,
+      duration: 0.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      wheelMultiplier: 2,
       touchMultiplier: 2,
       infinite: false,
     });

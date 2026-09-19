@@ -50,6 +50,8 @@ const NavLinkContentItem: React.FC<NavLinkContentItemProps> = ({
 
 interface NavLinkItemProps extends NavLink {
   content?: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
 }
 
 const isActivePath = (pathname: string, href: string): boolean => {
@@ -64,6 +66,8 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
   href,
   content,
   contentDisplay = NavLinkContentDisplay.list,
+  className,
+  containerClassName = "w-full",
 }) => {
   const pathname = usePathname();
   const isActive = isActivePath(pathname, href as string);
@@ -75,12 +79,13 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
 
   if (content)
     return (
-      <NavigationMenuItem>
+      <NavigationMenuItem className={cn(containerClassName)}>
         <NavigationMenuTrigger
           className={cn(
             "pb-2 text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
             isActive && "text-white border-white",
             hoverClassNames,
+            className,
           )}
         >
           {title}
@@ -100,7 +105,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
     );
 
   return (
-    <NavigationMenuItem>
+    <NavigationMenuItem className={cn(containerClassName)}>
       <NavigationMenuLink
         // asChild
         className={cn(
@@ -108,6 +113,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
           "pb-2 text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
           isActive && "text-white border-white",
           hoverClassNames,
+          className,
         )}
         href={href as string}
       >
@@ -129,9 +135,57 @@ const Header = () => {
   const [hasScrolled, sethasScrolled] = React.useState(false);
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (navRef.current && !navRef.current.contains(target)) {
+      setMobileNavOpen(false);
+    }
+    document.removeEventListener("click", handleOutsideClick);
+  };
+
   const toggleMobileNav = () => {
+    mobileNavOpen
+      ? document.removeEventListener("click", handleOutsideClick)
+      : document.addEventListener("click", handleOutsideClick);
     setMobileNavOpen(!mobileNavOpen);
   };
+
+  const renderedNavMenu = (
+    <NavigationMenu className={cn(mobileNavOpen ? "max-w-full" : "")}>
+      <NavigationMenuList
+        className={cn(
+          "flex gap-8",
+          mobileNavOpen
+            ? "w-full flex-col items-center"
+            : "flex-row items-center",
+        )}
+      >
+        {links?.map((l) => (
+          <NavLinkItem
+            key={l.href + l.title}
+            title={l.title}
+            href={l.href}
+            className={cn(mobileNavOpen ? "w-2/3" : "")}
+            containerClassName={cn(
+              mobileNavOpen
+                ? "w-full flex justify-center cursor-pointer"
+                : "cursor-pointer",
+            )}
+            content={l.subLinks?.map((sl) => (
+              <NavLinkContentItem
+                key={sl.href + sl.title}
+                title={sl.title}
+                href={sl.href as string}
+              >
+                {sl.description}
+              </NavLinkContentItem>
+            ))}
+            contentDisplay={NavLinkContentDisplay.grid}
+          />
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
 
   // TODO: look into replacing this with a use state if it is better
   React.useEffect(() => {
@@ -175,27 +229,7 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-8">
-              <NavigationMenu>
-                <NavigationMenuList className={"flex items-center gap-8"}>
-                  {links?.map((l) => (
-                    <NavLinkItem
-                      key={l.href + l.title}
-                      title={l.title}
-                      href={l.href}
-                      content={l.subLinks?.map((sl) => (
-                        <NavLinkContentItem
-                          key={sl.href + sl.title}
-                          title={sl.title}
-                          href={sl.href as string}
-                        >
-                          {sl.description}
-                        </NavLinkContentItem>
-                      ))}
-                      contentDisplay={NavLinkContentDisplay.grid}
-                    />
-                  ))}
-                </NavigationMenuList>
-              </NavigationMenu>
+              {renderedNavMenu}
             </div>
           </div>
 
@@ -212,10 +246,20 @@ const Header = () => {
           </div>
 
           <div
-            className="flex md:hidden p-2 text-white cursor-pointer"
+            className="flex md:hidden p-2 text-white"
             onClick={toggleMobileNav}
           >
             {mobileNavOpen ? <X /> : <Menu />}
+            <div
+              className={cn(
+                mobileNavOpen
+                  ? "absolute top-18 right-0 w-full flex flex-col gap-1 bg-secondary-alt/95 p-8 border-2 border-transparent"
+                  : "hidden",
+              )}
+              onClick={toggleMobileNav}
+            >
+              <div className="w-full flex flex-col">{renderedNavMenu}</div>
+            </div>
           </div>
         </div>
       </div>

@@ -170,7 +170,7 @@ const NewsComponent = () => {
                     key={c}
                     onClick={() => setselectedCategory(c?.toLowerCase())}
                     className={cn(
-                      "p-1 text-black/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 transition-all duration-300",
+                      "shrink-0 p-1 text-black/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 transition-all duration-300",
                       c?.toLowerCase() === selectedCategory &&
                         "text-primary border-primary",
                     )}
