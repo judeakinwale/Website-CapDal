@@ -1,10 +1,37 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Raleway, Space_Grotesk } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Raleway,
+  Space_Grotesk,
+  Lato,
+} from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "@/components/providers";
+import { defaultMetadata } from "@/components/metadata";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
+
+// TODO: implement the blair font for all headers properly
+// TODO: update all uppercase links / headings to use h tags only
+// const blair = localFont({
+//   src: [
+//     {
+//       path: "../fonts/Blair-Regular.woff2",
+//       weight: "400",
+//       style: "normal",
+//     },
+//     {
+//       path: "../fonts/Blair-Bold.woff2",
+//       weight: "700",
+//       style: "normal",
+//     },
+//   ],
+//   variable: "--font-blair",
+//   display: "swap",
+// });
 
 const spaceGroteskHeading = Space_Grotesk({
   subsets: ["latin"],
@@ -12,6 +39,11 @@ const spaceGroteskHeading = Space_Grotesk({
 });
 
 const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" });
+const lato = Lato({
+  weight: ["300", "400"],
+  subsets: ["latin"],
+  variable: "--font-lato",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +56,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cappa & D’Alberto Ltd",
-  description:
-    "Leading building and civil engineering contracting firm in Nigeria, with over 90 years of experience and a solid reputation built on its history, professionalism and commitment to service excellence",
+  title: defaultMetadata.baseTitle,
+  description: defaultMetadata.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -41,6 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         "font-sans",
         raleway.variable,
         spaceGroteskHeading.variable,
+        lato.variable,
       )}
     >
       <body className="min-h-full flex flex-col">

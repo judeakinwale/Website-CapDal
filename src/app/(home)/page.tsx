@@ -23,6 +23,7 @@ import { Button } from "@base-ui/react";
 import { useIsFetching } from "@tanstack/react-query";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 import { MdConstruction } from "react-icons/md";
 
 const Landing = () => {
@@ -145,7 +146,7 @@ const Landing = () => {
           <div className="container flex flex-col md:flex-row justify-between items-center gap-8 px-4 text-center cursor-default">
             {relevantStats?.map((s) => {
               return (
-                <>
+                <React.Fragment key={s.title + s.value}>
                   <div className="w-full flex flex-col gap-4 hover:text-white hover:-translate-y-2 hover:gap-3 transition-all duration-300">
                     <h4 className="text-4xl font-bold">{s.value}</h4>
                     <h6 className="text-sm uppercase tracking-widest">
@@ -153,7 +154,7 @@ const Landing = () => {
                     </h6>
                   </div>
                   <span className="last:hidden w-1/2 h-px md:w-1 md:min-h-2/3 bg-white/50"></span>
-                </>
+                </React.Fragment>
               );
             })}
           </div>
@@ -222,6 +223,7 @@ const Landing = () => {
                 {featuredProjects?.map((p) => {
                   return (
                     <FeaturedProjectCard
+                      key={p.title + p.category}
                       title={p.title}
                       image={p.image}
                       category={p.category}

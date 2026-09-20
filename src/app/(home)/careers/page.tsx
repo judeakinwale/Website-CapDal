@@ -149,7 +149,7 @@ const Careers = () => {
           <div className="container flex flex-col md:flex-row justify-between items-center gap-8 px-4 text-center cursor-default">
             {relevantStats?.map((s) => {
               return (
-                <>
+                <React.Fragment key={s.title + s.value}>
                   <div className="group w-full flex flex-col gap-4 hover:-translate-y-2 hover:gap-3 hover:text-black transition-all duration-300">
                     <h4 className="text-5xl text-primary font-medium">
                       {s.value}
@@ -159,7 +159,7 @@ const Careers = () => {
                     </h6>
                   </div>
                   <span className="last:hidden w-1/2 h-px md:w-1 md:min-h-2/3 bg-white/50"></span>
-                </>
+                </React.Fragment>
               );
             })}
           </div>

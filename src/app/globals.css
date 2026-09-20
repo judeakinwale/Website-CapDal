@@ -25,6 +25,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
+  --font-lato: var(--font-lato);
+  /* --font-blair: var(--font-blair); */
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -164,9 +166,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-lato);
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
   }
+  /* TODO: implement this */
+  /* h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-blair);
+  } */
 }

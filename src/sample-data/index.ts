@@ -460,7 +460,7 @@ export const defaultSections: Section[] = [
     title: "Who We Are",
     section: SiteSections.WHO_WE_ARE,
     subTitle:
-      "Cappa & D'Alberto PLC is Nigeria's foremost building and civil engineering firm. For over 90 years, we have shaped the skyline of major Nigerian cities, delivering landmark infrastructure that stands the test of time. ",
+      "Cappa & D'Alberto Ltd is Nigeria's foremost building and civil engineering firm. For over 90 years, we have shaped the skyline of major Nigerian cities, delivering landmark infrastructure that stands the test of time. ",
     content:
       "Our commitment to quality, precision, and institutional reliability has made us the trusted partner for the nation's most ambitious architectural visions. From the historic National Theatre to the contemporary Wings Office Complex, our legacy is etched in the very fabric of Nigeria. ",
     images: [

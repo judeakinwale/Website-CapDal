@@ -199,7 +199,7 @@ const Footer = () => {
         {/*  */}
         <div className="w-full flex justify-center p-4 border-t border-white/10 text-center">
           <p className="container text-xs text-white/50">
-            &copy; {new Date().getFullYear()} Cappa &amp; D'Alberto PLC. All
+            &copy; {new Date().getFullYear()} Cappa &amp; D'Alberto Ltd. All
             Rights Reserved. Built for Nigeria's Future
           </p>
         </div>

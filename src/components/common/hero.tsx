@@ -32,7 +32,7 @@ export const getCtaVariantByIndex = (
 export const renderLinksAsButtons = (links: SectionLink[]): React.ReactNode => {
   if (!links) return <></>;
   return links?.map((l, index) => (
-    <SiteButton href={l.url} variant={getCtaVariantByIndex(index)}>
+    <SiteButton key={l.url} href={l.url} variant={getCtaVariantByIndex(index)}>
       {l.title}
     </SiteButton>
   ));
