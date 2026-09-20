@@ -406,14 +406,20 @@ const SimpleServiceSection: React.FC<SimpleServiceSectionProps> = ({
     </div>
   );
 
-  const imgLeftVariant = [renderedImage, renderedDetails];
-  const imgRightVariant = [renderedDetails, renderedImage];
-  // const imgRightVariant = (
-  //   <>
-  //     {renderedDetails}
-  //     {renderedImage}
-  //   </>
-  // );
+  // const imgLeftVariant = [renderedImage, renderedDetails];
+  // const imgRightVariant = [renderedDetails, renderedImage];
+  const imgLeftVariant = (
+    <>
+      {renderedImage}
+      {renderedDetails}
+    </>
+  );
+  const imgRightVariant = (
+    <>
+      {renderedDetails}
+      {renderedImage}
+    </>
+  );
 
   let renderedSection = imgRightVariant;
   if (isLeftVariant) renderedSection = imgLeftVariant;
