@@ -1,8 +1,9 @@
 "use client";
 import SimpleServiceSection, {
+  geServiceVariantByIndex,
   SSVariant,
 } from "@/components/common/card/simple-service-section";
-import Hero from "@/components/common/hero";
+import Hero, { getCtaVariantByIndex } from "@/components/common/hero";
 import NoItemFound from "@/components/common/no-item-found";
 import { SiteButton } from "@/components/common/site-button";
 import { useGetItems } from "@/lib/reactQuery/api";
@@ -20,7 +21,7 @@ const Services = () => {
   const { data: services = defaultServices } = useGetItems<Service>("/service");
 
   // core services are only used on the homepage
-  const nonCoreServices = services; // services?.filter((s) => !s.isCore);
+  const nonCoreServices = services?.filter((s) => !s.isCore);
 
   const servicesCtaSection =
     sections.find((s) => s.section === SiteSections.SERVICES_CTA) ||
@@ -61,19 +62,28 @@ const Services = () => {
             </div> */}
             {/* services list */}
             {!!nonCoreServices?.length && (
-              <div className="relative min-h-64 w-full flex flex-col justify-center items-center">
-                {nonCoreServices?.map((n, i) => (
-                  <SimpleServiceSection
-                    key={n.title}
-                    title={n.title}
-                    image={n.image}
-                    content={n.content}
-                    description={n.description}
-                    blurb={n.blurb}
-                    bulletPoints={n.bulletPoints}
-                    variant={i % 2 === 0 ? SSVariant.LEFT : SSVariant.RIGHT}
-                  />
-                ))}
+              <div className="relative min-h-64 w-full flex flex-col justify-center items-center gap-8">
+                {nonCoreServices?.map((n, i) => {
+                  const { image, background, bulletpoint } =
+                    geServiceVariantByIndex(i);
+                  return (
+                    <SimpleServiceSection
+                      key={n.title}
+                      title={n.title}
+                      subTitle={n.subTitle}
+                      images={n.images}
+                      description={n.description}
+                      content={n.content}
+                      blurb={n.blurb}
+                      links={n.links}
+                      bulletPoints={n.bulletPoints}
+                      // variant={i % 2 === 0 ? SSVariant.RIGHT : SSVariant.LEFT}
+                      variant={image}
+                      colorVariant={background}
+                      bulletPointVariant={bulletpoint}
+                    />
+                  );
+                })}
               </div>
             )}
             {!nonCoreServices?.length && (

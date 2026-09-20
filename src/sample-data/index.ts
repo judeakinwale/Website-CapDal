@@ -249,58 +249,198 @@ export const defaultProjects: Project[] = [
 export const defaultCoreServices: Service[] = [
   {
     title: "Civil Engineering",
-    image: "/images/bld-national-theatre.jpg",
+    images: [{ url: "/images/bld-national-theatre.jpg" }],
     description: "Complex structural systems and infrastructure development.",
-    blurb:
+    content:
       "Leveraging decades of expertise to deliver robust foundations and heavy civil structures that define modern Nigeria.",
     isCore: true,
   },
   {
     title: "General Construction",
-    image: "/images/hero-services.jpg",
+    images: [{ url: "/images/hero-services.jpg" }],
     description:
       "Turnkey solutions for residential, commercial, and industrial hubs.",
-    blurb:
+    content:
       "Seamless delivery from ground-breaking to handover, ensuring the highest standards of architectural integrity.",
     isCore: true,
   },
   {
     title: "Project Management",
-    image: "/images/bld-wings.jpg",
+    images: [{ url: "/images/bld-wings.jpg" }],
     description:
       "Rigorous oversight and technical precision for large-scale assets.",
-    blurb:
+    content:
       "Global best practices in project lifecycle management to ensure timeline adherence and cost efficiency.",
     isCore: true,
   },
   {
     title: "Interior Fit-out",
-    image: "/images/bld-the-citadel.jpg",
+    images: [{ url: "/images/bld-the-citadel.jpg" }],
     description: "High-end finishing and interior spatial engineering.",
-    blurb:
+    content:
       "Bespoke interiors that mirror the external grandeur, utilizing premium materials and meticulous craftsmanship.",
     isCore: true,
   },
   {
     title: "MEP Systems",
-    image: "/images/bld-amce.png",
+    images: [{ url: "/images/bld-amce.png" }],
     description: "Integrated mechanical, electrical, and plumbing solutions.",
-    blurb:
+    content:
       "Smart building systems integrated seamlessly for optimal operational efficiency and sustainability.",
     isCore: true,
   },
   {
     title: "Heritage Restoration",
-    image: "/images/bld-tcc.jpg",
+    images: [{ url: "/images/bld-tcc.jpg" }],
     description:
       "Preserving Nigeria's architectural legacy through expert restoration.",
-    blurb:
+    content:
       "Combining historical research with modern engineering techniques to restore and preserve iconic structures for future generations.",
     isCore: true,
   },
 ];
 
-export const defaultServices: Service[] = [...defaultCoreServices];
+export const defaultServices: Service[] = [
+  ...defaultCoreServices,
+  {
+    title: "Civil Engineering",
+    subTitle: "ENGINEERING PRECISION",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAK9t4OG8wTkV7jTk_TBpUQZ_gRH6tjAES68fTEdPrFU8FUp5-RfsCl9ehSlf2aOR2sjJvGTktz4v2Q8O1otfcKvuKsYNCUvi94DGRE59vr3UUmQo7GZ34W4sf0vUIokmnaF-NHnysJ7aqSviZC-jY4O5fMFCNHkJfGaNwQVABaPubwZlZlgWMlpEHAwL9t3szcCLjwkkEE_70sCdVw-oX-SQtQO60Tx-QABla9N3VwIJI90QT_3Hm9ZegCPsfp-2Ze7DY4LJN-_dVu",
+        description:
+          "A wide cinematic aerial view of a large scale civil engineering bridge project in Lagos, Nigeria. The image shows massive concrete piers rising from a river with heavy construction cranes and equipment actively working. The lighting is golden hour, casting long shadows and highlighting the texture of the raw concrete and steel against the shimmering water. The mood is industrious and powerful.",
+      },
+    ],
+    links: [{ title: "View Civil Projects", url: "/projects" }],
+    description: "",
+    content:
+      "Our civil engineering division handles large-scale infrastructure projects including highways, bridges, and complex drainage systems. We utilize advanced geological surveying and structural analysis to ensure the longevity and safety of Nigeria's essential arteries.",
+    blurb: undefined,
+    isCore: false,
+    bulletPoints: [
+      {
+        title: "Advanced Paving & Highway Construction",
+        icon: "MdCheckCircleOutline",
+      },
+      { title: "Structural Bridge Engineering", icon: "MdCheckCircleOutline" },
+      {
+        title: "Urban Drainage & Sewage Management",
+        icon: "MdCheckCircleOutline",
+      },
+    ],
+  },
+  {
+    title: "Construction Management",
+    subTitle: "SEAMLESS DELIVERY",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuD6ZmzMpmtWN2T7nU0E1xxF3ZPd1bamGIapN7mvIe_dILmBkq75P9Pp9Whezqn-v19-NaVSDqYLxv8JXKTpTPSgv3mAq4bepI4nD8k9DZHWfijduklMM-8ZelpDfE_R5-SDlekg55bjTpLBPkys0QB2rXOOB1NPvdwlCTO8p2nJfjnJHImr_eLAdnapiwfUrURuyEHBUkOUNaRiG5nlMDzYG7ew6Hc2Di5t_IdZNH9RXjlJipAudD7PfcKX9f3FW3k0VVyVETKm4y_w",
+        description:
+          "An interior shot of a modern high-rise building under construction, focusing on the intricate steel framework and floor slabs. Professional construction managers in high-visibility vests and helmets are reviewing blueprints on a large tablet. The scene is bathed in natural daylight streaming through open structural gaps, creating a sharp, professional contrast. The aesthetic is clean, technical, and organized.",
+      },
+    ],
+    links: [],
+    description: "",
+    content:
+      "Our management team ensures that every project, regardless of size, adheres to the strictest timelines and budget constraints. We integrate procurement, logistics, and on-site supervision into a unified workflow that prioritizes quality and worker safety above all else.",
+    blurb: undefined,
+    isCore: false,
+    bulletPoints: [
+      { title: "100%", description: "Safety Compliance" },
+      { title: "90+", description: "Active Sites" },
+    ],
+  },
+  {
+    title: "Design & Build",
+    subTitle: "CONCEPT TO REALITY",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAXdI7HtS67UicRjJQt51UV1xf1nZ1kYNPQ2GYw4LPKNFPgUn1sOWcH-6arKZh9FUoebcgYHNj4ddguu4n6DR6PUsWYbt9quGa4JmEgRHa1kpBUHI5-rKK7n8wO46wK48vpGYXVvgpXkuP6gHlX0UQ-bmTyXC6OC5533Jh8b-pYM06x656vuuo3SH6Ss--a96NDLpvndbOmolBGlsYPZKHx3loWGjUHyHipqdYHPFp2EDRYsc80Jt8junBkNJTM2TznUW7wU5FAC81C",
+        description:
+          "A hyper-modern glass office building reflecting the bright blue Lagos sky. The image emphasizes the sharp edges and clean lines of the design-build project. The lighting is vibrant and high-contrast, symbolizing modern corporate growth. The architectural style is futuristic with subtle metallic accents and vast glass panes.",
+      },
+    ],
+    links: [],
+    description: "",
+    content:
+      "By unifying design and construction under one roof, we eliminate the communication gap between architects and builders. This holistic approach accelerates delivery schedules and provides clients with a single point of responsibility for their vision.",
+    blurb: undefined,
+    isCore: false,
+    bulletPoints: [
+      {
+        title: "Integrated Architectural Team",
+        icon: "MdArchitecture",
+        description: "Seamless coordination from first sketch to final brick.",
+      },
+      {
+        title: "BIM Modeling",
+        icon: "MdAnalytics",
+        description:
+          "3D digital twins for clash detection and cost optimization.",
+      },
+    ],
+  },
+  {
+    title: "Facility Management",
+    subTitle: "LIFECYCLE CARE",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDxdqcWsuucuGc7lXBHe9M3hldPapg3C_8s_kh37Nso_MTqVnKr3L0IUqO_ZaGMdsr0MGpsyD5jdp5RdwJIHNduq3Q61I0SwgiEQhRAYBAflPjEmHIi2xKv4B5Fph5mad-Npc2bw21Os2yJwFxo92uIgsjqKw6-T4o5YsEdBs-eIJF9sVX8v3f--8YJzkF5JIX3hPWYToq3ViCUGN7RVxmQC1s77M2WE_k7c_EmujwYilx3psLvBPs2F8kmqUHaVpdamo8_Qn8_BAWk",
+        description:
+          "A pristine, well-maintained industrial facility interior showing rows of high-tech HVAC systems and electrical panels. The floor is polished concrete reflecting the overhead sterile white lighting. The scene represents absolute order and meticulous facility management maintenance. The color palette is dominated by grays, blues, and whites with red emergency labels providing accents.",
+      },
+    ],
+    links: [],
+    description: "",
+    content:
+      "Our commitment to your project doesn't end with the handover. We offer comprehensive facility management services that protect your investment through proactive maintenance, energy management, and system upgrades, ensuring your asset remains at peak performance.",
+    blurb: undefined,
+    isCore: false,
+    bulletPoints: [
+      { title: "MECHANICAL", description: "HVAC & Plumbing Maintenance" },
+      {
+        title: "ELECTRICAL",
+        description: "Power Systems & Grid Optimization",
+      },
+      {
+        title: "SECURITY",
+        description: "Integrated Surveillance & Access Control",
+      },
+    ],
+  },
+  {
+    title: "Aluminium & Curtain Walling",
+    subTitle: "TECHNICAL FACADES",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/aida-public/AB6AXuBQWiudfhYD6wKKaReYU3JHiQVZb6kig9lqyevAsjPZf2SVOuzs39gJ_75ehrxazBYAE81VM0h4gtFVwBXXMcIqCz0ZKI-cR1sEbXX6_jHJg7fLsbAiaLvMYUIBvtsggtGl3yucv3iocf6t1VZ23vIZkWEdH9kpE0O5cymvLcg0UUNi8u4lpj5k6r-UNPeahBVZjqO1Yj59bZ1UTeVCrixDkOoVpBLAG-XKIJV7NncBfgjdWgnzI3XmhwM4M1vAmmbX5HjhFNAJbGlU",
+        description:
+          "A close-up shot of a sophisticated glass curtain wall on a skyscraper. The reflection of the sunset creates a brilliant play of orange, deep navy, and gold on the vertical glass panels. The aluminum framing is sharp and dark, providing a strong structural grid. The image is captured from a low angle to show the soaring height of the facade.",
+      },
+    ],
+    links: [],
+    description: "",
+    content:
+      "Our specialized division designs and installs advanced curtain wall systems that provide both aesthetic brilliance and thermal efficiency. Using high-grade aluminium and performance glazing, we create building envelopes that withstand the Nigerian climate while offering stunning panoramas.",
+    blurb: undefined,
+    isCore: false,
+    bulletPoints: [
+      {
+        title: "Bespoke Extrusions",
+        icon: "MdGridView",
+        description:
+          "Custom aluminum profiles for unique architectural identities.",
+      },
+      {
+        title: "Thermal Performance",
+        icon: "MdWbSunny",
+        description:
+          "Advanced glazing solutions reducing energy consumption by up to 30%.",
+      },
+    ],
+  },
+];
 
 export const defaultStats: Stat[] = [
   { title: "Years of Excellence", value: "90+", section: StatSection.GENERAL },

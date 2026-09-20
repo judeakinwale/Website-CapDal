@@ -116,7 +116,7 @@ const About = () => {
               </div>
             </div>
 
-            <div className="max-w-xl flex flex-col gap-8 p-4">
+            <div className="max-w-xl flex flex-col gap-8 p-4 lg:p-8">
               <div className="flex flex-col gap-4">
                 <h2 className="text-primary text-4xl font-bold">
                   <SplitTitle

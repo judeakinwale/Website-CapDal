@@ -168,9 +168,9 @@ const Landing = () => {
           <div className="container flex flex-col items-center gap-12 px-4">
             <div className="flex flex-col gap-4 items-center">
               <h6 className="text-black/50 text-xs font-semibold uppercase tracking-widest">
-                {hcs?.subTitle}
+                {hss?.subTitle}
               </h6>
-              <h3 className="text-primary text-4xl font-bold">{hcs?.title}</h3>
+              <h3 className="text-primary text-4xl font-bold">{hss?.title}</h3>
             </div>
             {!!coreServices?.length && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center items-center">
@@ -178,10 +178,10 @@ const Landing = () => {
                   <SimpleServiceCard
                     key={n.title}
                     title={n.title}
-                    image={n.image}
+                    images={n.images}
                     description={n.description}
-                    blurb={n.blurb}
-                    link={`/news/${n.id}`}
+                    content={n.content}
+                    // link={`/services/${n.id}`}
                   />
                 ))}
               </div>

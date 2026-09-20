@@ -1,4 +1,4 @@
-import { DefaultBulletPoints, DefaultItem, DefaultSimpleLink } from "./default";
+import { DefaultBulletPoint, DefaultItem, DefaultSimpleLink } from "./default";
 
 export enum SiteSections {
   FOOTER = "footer",
@@ -37,7 +37,7 @@ export interface SectionLink extends DefaultSimpleLink {
   title: string;
 }
 
-export interface SectionBulletPoints extends DefaultBulletPoints {}
+export interface SectionBulletPoint extends DefaultBulletPoint {}
 
 export interface Section extends DefaultItem {
   title: string;
@@ -53,5 +53,5 @@ export interface Section extends DefaultItem {
   // link?: string;
   // linkText?: string;
   links?: SectionLink[];
-  bulletPoints?: SectionBulletPoints[]; // for services and our founder sections
+  bulletPoints?: SectionBulletPoint[]; // for services and our founder sections
 }

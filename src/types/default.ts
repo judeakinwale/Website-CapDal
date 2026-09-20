@@ -22,7 +22,7 @@ export interface DefaultSimpleLink {
   order?: number;
 }
 
-export interface DefaultBulletPoints {
+export interface DefaultBulletPoint {
   title: string;
   description?: string;
   icon?: string;

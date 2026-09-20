@@ -7,7 +7,7 @@ interface HomeLayoutProps {
 
 const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen w-screen bg-secondary">
+    <div className="min-h-dvh w-screen bg-secondary">
       <Header />
       {children}
       <Footer />
