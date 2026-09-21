@@ -82,7 +82,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
       <NavigationMenuItem className={cn(containerClassName)}>
         <NavigationMenuTrigger
           className={cn(
-            "pb-2 text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
+            "text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
             isActive && "text-white border-white",
             hoverClassNames,
             className,
@@ -110,7 +110,7 @@ const NavLinkItem: React.FC<NavLinkItemProps> = ({
         // asChild
         className={cn(
           navigationMenuTriggerStyle(),
-          "pb-2 text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
+          "text-white/80 text-sm font-bold border-b-2 border-transparent uppercase hover:bg-white/5 transition-all",
           isActive && "text-white border-white",
           hoverClassNames,
           className,
@@ -167,9 +167,8 @@ const Header = () => {
             href={l.href}
             className={cn(mobileNavOpen ? "w-2/3" : "")}
             containerClassName={cn(
-              mobileNavOpen
-                ? "w-full flex justify-center cursor-pointer"
-                : "cursor-pointer",
+              "flex cursor-pointer",
+              mobileNavOpen ? "w-full justify-center" : "",
             )}
             content={l.subLinks?.map((sl) => (
               <NavLinkContentItem

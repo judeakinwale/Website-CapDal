@@ -8,4 +8,5 @@ export const defaultMetadata = {
   keywords: "",
   author: "Cappa & D’Alberto Ltd",
   favicon: "/favicon.ico",
+  baseUrl: "https://capdal.com",
 };
