@@ -6,6 +6,7 @@ export enum ContactInfoType {
   EMAIL = "email",
   MEDIA_PHONE = "media-phone",
   MEDIA_EMAIL = "media-email",
+  CAREER_EMAIL = "career-email",
 }
 
 export interface ContactInfo extends DefaultItem {

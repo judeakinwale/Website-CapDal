@@ -86,6 +86,8 @@ export const defaultContactInfo: ContactInfo[] = [
 
   { type: ContactInfoType.MEDIA_PHONE, title: "+234 (0)902 322 0000" },
   { type: ContactInfoType.MEDIA_EMAIL, title: "info@capdal.com" },
+
+  { type: ContactInfoType.CAREER_EMAIL, title: "careers@capdal.com" },
 ];
 
 export const defaultNews: News[] = [

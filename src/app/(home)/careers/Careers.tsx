@@ -12,7 +12,9 @@ import {
   defaultRoles,
   defaultRoleDivisions,
   defaultStats,
+  defaultContactInfo,
 } from "@/sample-data";
+import { ContactInfo, ContactInfoType } from "@/types/contact";
 import { Role, RoleDivision } from "@/types/role";
 import { Section, SiteSections } from "@/types/section";
 import { Stat, StatSection } from "@/types/stat";
@@ -35,6 +37,8 @@ const CareersClient = () => {
   const { data: stats = defaultStats } = useGetItems<Stat>("/stat");
   const { data: sections = defaultSections } = useGetItems<Section>("/section");
   const { data: roles = defaultRoles } = useGetItems<Role>("/role");
+  const { data: contactInfo = defaultContactInfo } =
+    useGetItems<ContactInfo>("/contact");
   const { data: roleDivisions = defaultRoleDivisions } =
     useGetItems<RoleDivision>("/role-division");
 
@@ -49,6 +53,10 @@ const CareersClient = () => {
       s.section === StatSection.GENERAL ||
       !s.section,
   );
+
+  const careerContactEmail = contactInfo.find((c) => {
+    return c.type === ContactInfoType.CAREER_EMAIL;
+  });
 
   const divisions = [defaultDivision, ...roleDivisions.map((c) => c.title)];
 
@@ -109,6 +117,13 @@ const CareersClient = () => {
   ];
 
   const cclsMainImage = ccls?.images?.[0];
+
+  const triggerRoleApplicationEmail = (role?: Role) => {
+    if (!careerContactEmail) return;
+
+    const mailto = `mailto:${careerContactEmail?.title}?subject=Application for ${role?.title}`;
+    window.location.href = mailto;
+  };
 
   React.useEffect(() => {
     if (!division) return;
@@ -262,6 +277,7 @@ const CareersClient = () => {
                     location={r.location}
                     image={r.image}
                     expiresAt={r.expiresAt}
+                    onClick={() => triggerRoleApplicationEmail(r)}
                   />
                 ))}
               </div>
@@ -278,6 +294,7 @@ const CareersClient = () => {
                 variant="primary-outline"
                 href={crs?.links?.[0]?.url!}
                 className="w-fit"
+                onClick={triggerRoleApplicationEmail}
               >
                 {crs?.links?.[0]?.title}
               </SiteButton>
