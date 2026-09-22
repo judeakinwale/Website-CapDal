@@ -1,8 +1,8 @@
 import { DefaultBulletPoint, DefaultItem, DefaultSimpleLink } from "./default";
 
-export interface SectionImage extends DefaultSimpleLink {}
+export interface ServiceImage extends DefaultSimpleLink {}
 
-export interface SectionLink extends DefaultSimpleLink {
+export interface ServiceLink extends DefaultSimpleLink {
   title: string;
 }
 
@@ -21,10 +21,10 @@ export interface CoreService_NotUsed extends DefaultItem {
 export interface Service extends DefaultItem {
   title: string;
   subTitle?: string;
-  images: SectionImage[];
+  images: ServiceImage[];
   description?: string; // short content (required if isCore)
   content: string;
-  links?: SectionLink[];
+  links?: ServiceLink[];
   blurb?: string; // random text displayed somewhere
   isCore?: boolean; // (displayed on the homepage)
   bulletPoints?: ServiceBulletPoint[];

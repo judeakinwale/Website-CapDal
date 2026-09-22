@@ -90,6 +90,7 @@ export const defaultContactInfo: ContactInfo[] = [
 
 export const defaultNews: News[] = [
   {
+    id: "news-001",
     title:
       "Innovating the Skyline: Cappa & D'Alberto's Approach to Sustainable Skyscraper Design",
     tag: "Corporate",
@@ -100,6 +101,7 @@ export const defaultNews: News[] = [
     body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi consequuntur ducimus voluptatem tempore blanditiis excepturi fuga quisquam accusamus corporis reprehenderit!",
   },
   {
+    id: "news-002",
     title:
       "The Future of Infrastructure: Integrating MEP Systems in Mega-Scale Projects",
     tag: "Engineering",
@@ -109,6 +111,7 @@ export const defaultNews: News[] = [
     body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi consequuntur ducimus voluptatem tempore blanditiis excepturi fuga quisquam accusamus corporis reprehenderit!",
   },
   {
+    id: "news-003",
     title:
       "Restoring a Legend: Inside the Multi-Phase Revitalization of the National Theatre",
     tag: "Awards",
@@ -454,8 +457,6 @@ export const defaultStats: Stat[] = [
   { title: "Global ESG Rating ", value: "Top 5", section: StatSection.CAREERS },
 ];
 
-// TODO: replace image and alt image with an array of SectionImage each with url and description (specifically for hero images)
-// TODO: do the same for links
 export const defaultSections: Section[] = [
   {
     title: "",
