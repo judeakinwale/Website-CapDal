@@ -1,7 +1,10 @@
 import { DefaultBulletPoint, DefaultItem, DefaultSimpleLink } from "./default";
 
 export enum SiteSections {
+  HEADER = "header",
+  HEADER_CONTACT = "header-contact",
   FOOTER = "footer",
+  FOOTER_NEWSLETTER = "footer-newsletter",
   WHO_WE_ARE = "who-we-are",
   HOME_SERVICES = "home-services",
   HOME_LANDMARKS = "home-landmarks",

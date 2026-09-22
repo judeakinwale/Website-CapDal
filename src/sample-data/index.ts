@@ -11,6 +11,7 @@ import { Service } from "@/types/service";
 import { Stat, StatSection } from "@/types/stat";
 import { Timeline } from "@/types/timeline";
 import { Role, RoleDivision, RoleType } from "@/types/role";
+import { LOGO_URL } from "@/constants/assets";
 
 export const defaultNavLinks: NavLink[] = [
   { title: "Home", href: "/", order: 1 },
@@ -457,6 +458,31 @@ export const defaultStats: Stat[] = [
 // TODO: do the same for links
 export const defaultSections: Section[] = [
   {
+    title: "",
+    section: SiteSections.HEADER,
+    content: "",
+    images: [{ url: LOGO_URL, description: "CapDal Logo" }],
+  },
+  {
+    title: "Contact Us",
+    section: SiteSections.HEADER_CONTACT,
+    content: "",
+  },
+  {
+    title: "News",
+    section: SiteSections.FOOTER,
+    content:
+      "Pioneering Nigeria's construction industry since 1932. Institutional reliability, cinematic scale.",
+    images: [{ url: LOGO_URL, description: "CapDal Logo" }],
+  },
+  {
+    title: "Newsletter",
+    section: SiteSections.FOOTER_NEWSLETTER,
+    content: "Stay updated with our latest landmark projects.",
+    blurb: "Your Email",
+  },
+  // ------------------------------------------------------------------------
+  {
     title: "Who We Are",
     section: SiteSections.WHO_WE_ARE,
     subTitle:
@@ -732,6 +758,7 @@ export const defaultSections: Section[] = [
     section: SiteSections.NEWS_NEWSLETTER,
     content:
       "Stay informed with our monthly dispatch on infrastructure milestones and technical breakthroughs.",
+    blurb: "Corporate Email Address",
     links: [{ title: "Subscribe", url: "" }],
   },
   {

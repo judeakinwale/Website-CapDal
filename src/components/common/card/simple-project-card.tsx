@@ -29,11 +29,11 @@ const SimpleProjectCard: React.FC<SimpleProjectCardProps> = ({
     >
       <div className="relative aspect-3/4 overflow-hidden">
         <img
-          className="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+          className="w-full h-full object-cover greyscale-0 lg:grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
           src={image}
         />
         {/* hover info */}
-        <div className="absolute inset-0 flex justify-center items-end bg-linear-0 from-primary/95 to-primary/0 from-0% to-60% translate-y-full group-hover:translate-y-0 group-hover:opacity-100 transition-transform duration-500">
+        <div className="absolute inset-0 flex justify-center items-end bg-linear-0 from-primary/95 to-primary/0 from-0% to-60% lg:translate-y-full group-hover:translate-y-0 group-hover:opacity-100 transition-transform duration-500">
           <div className="w-full h-fit flex flex-col justify-end items-center gap-2 p-8 text-white text-center  group-hover:backdrop-blur-xs transition-all duration-500">
             <div className="w-full flex justify-between items-center gap-2 ">
               {category && (
@@ -74,7 +74,7 @@ const SimpleProjectCard: React.FC<SimpleProjectCardProps> = ({
           </div>
         </div>
       </div>
-      <div className="z-10 p-4">
+      <div className="hidden lg:flex z-10 p-4">
         {/* <h4 className="text-lg text-primary font-bold">{title}</h4> */}
         <p className="uppercase">{title}</p>
       </div>

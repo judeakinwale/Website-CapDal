@@ -11,16 +11,15 @@ import {
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Url } from "url";
 import { useGetItems } from "@/lib/reactQuery/api";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { NavLink, NavLinkContentDisplay } from "@/types/links";
 import { LOGO_URL } from "@/constants/assets";
-import { defaultNavLinks } from "@/sample-data";
+import { defaultNavLinks, defaultSections } from "@/sample-data";
 import React from "react";
-import { useLenis } from "@/context/lenis";
 import { X, Menu } from "lucide-react";
+import { Section, SiteSections } from "@/types/section";
 
 interface NavLinkContentItemProps extends React.ComponentPropsWithoutRef<"li"> {
   href: string;
@@ -131,9 +130,19 @@ const Header = () => {
   const navRef = React.useRef<HTMLDivElement | null>(null);
 
   const { data: links = defaultNavLinks } = useGetItems<NavLink>("/navlink");
+  const { data: sections = defaultSections } = useGetItems<Section>("/section");
 
   const [hasScrolled, sethasScrolled] = React.useState(false);
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
+
+  const headerSection =
+    sections.find((s) => s.section === SiteSections.HEADER) || ({} as Section);
+
+  const headerContactSection =
+    sections.find((s) => s.section === SiteSections.HEADER_CONTACT) ||
+    ({} as Section);
+
+  const [hs, hcs] = [headerSection, headerContactSection];
 
   const handleOutsideClick = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
@@ -218,11 +227,11 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <Link className="" href="/">
               <Image
-                alt="Cappa &amp; D'Alberto"
+                alt={hs?.images?.[0]?.description || "Cappa & D'Alberto"}
                 className="h-10 w-52 object-contain"
                 width={203}
                 height={40}
-                src={LOGO_URL}
+                src={hs?.images?.[0]?.url || LOGO_URL}
               />
             </Link>
           </div>
@@ -239,7 +248,7 @@ const Header = () => {
                   "bg-white text-primary text-sm font-bold uppercase hover:bg-black hover:text-white transition-all duration-300",
                 )}
               >
-                Contact Us
+                {hcs?.title || "Contact Us"}
               </Button>
             </Link>
           </div>

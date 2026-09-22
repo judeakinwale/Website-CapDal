@@ -6,6 +6,7 @@ import {
   defaultFooterNavLinks,
   defaultNavLinks,
   defaultProjectCategories,
+  defaultSections,
   defaultSocialLinks,
 } from "@/sample-data";
 import { ContactInfo, ContactInfoType } from "@/types/contact";
@@ -20,6 +21,7 @@ import { IconType } from "react-icons/lib";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/icon";
 import NewsletterForm from "@/modules/(home)/newsletter-form";
+import { Section, SiteSections } from "@/types/section";
 // import { useParams, useSearchParams } from 'next/navigation'
 
 interface FooterLinkItemProps {
@@ -57,6 +59,7 @@ const FooterSectionHeader: React.FC<FooterSectionHeader> = ({ title }) => {
 const Footer = () => {
   const isFetching = Boolean(useIsFetching());
 
+  const { data: sections = defaultSections } = useGetItems<Section>("/section");
   const { data: categories = defaultProjectCategories } =
     useGetItems<DefaultItem>("/project-category");
 
@@ -76,6 +79,15 @@ const Footer = () => {
     {} as Record<ContactInfoType, ContactInfo[]>,
   );
 
+  const footerSection =
+    sections.find((s) => s.section === SiteSections.FOOTER) || ({} as Section);
+
+  const footerNewsletterSection =
+    sections.find((s) => s.section === SiteSections.FOOTER_NEWSLETTER) ||
+    ({} as Section);
+
+  const [fs, fnls] = [footerSection, footerNewsletterSection];
+
   return (
     <div className=" ">
       <footer className="w-full flex flex-col items-center gap-12 bg-black py-16 text-white/70 border-t border-white/20 ">
@@ -85,31 +97,17 @@ const Footer = () => {
           <div className="w-full sm:col-span-2 flex flex-col gap-6">
             <Link className="" href="/">
               <Image
-                alt="Cappa &amp; D'Alberto"
+                alt={fs?.images?.[0]?.description || "Cappa & D'Alberto"}
                 className="h-10 w-52 object-contain"
                 width={203}
                 height={40}
-                src={LOGO_URL}
+                src={fs?.images?.[0]?.url || LOGO_URL}
               />
             </Link>
             <p className="font-body-md text-white/80 max-w-xs text-sm">
-              Pioneering Nigeria's construction industry since 1932.
-              Institutional reliability, cinematic scale.
+              {fs.content}
             </p>
             <div className="flex gap-4">
-              {/* <Link
-                href={"#"}
-                className="w-10 h-10 shrink-0 flex justify-center items-center rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-all"
-              >
-                <Earth />
-              </Link>
-              <Link
-                href={"#"}
-                className="w-10 h-10 shrink-0 flex justify-center items-center rounded-full border border-white/20 hover:bg-white/10 hover:text-white transition-all"
-              >
-                <Briefcase />
-              </Link> */}
-
               {socialLinks?.map((s) => (
                 <Link
                   key={s.href}
@@ -189,9 +187,7 @@ const Footer = () => {
           {/*  */}
           <div className="flex flex-col gap-4">
             <FooterSectionHeader title="Newsletter" />
-            <p className="text-sm">
-              Stay updated with our latest landmark projects.
-            </p>
+            <p className="text-sm">{fnls.content}</p>
 
             <NewsletterForm variant="footer" />
           </div>

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import { useCreateItem } from "@/hooks";
+import { useCreateItem, useGetItems } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { InputField } from "@/components/ui/form-fields";
 import { useAuth } from "@/context/auth-context";
@@ -14,6 +14,8 @@ import { SiteButton } from "@/components/common/site-button";
 import { Input } from "@/components/ui/input";
 import { cn } from "cn";
 import { ArrowRight } from "lucide-react";
+import { Section, SiteSections } from "@/types/section";
+import { defaultSections } from "@/sample-data";
 
 const newsletterSchema = z.object({
   email: z.string().min(3, "Email is Required"),
@@ -31,6 +33,19 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({
   variant = "news",
 }) => {
   // const { refetchUser } = useAuth();
+
+  const { data: sections = defaultSections } = useGetItems<Section>("/section");
+
+  const newsNewsletterSection =
+    sections.find((s) => s.section === SiteSections.NEWS_NEWSLETTER) ||
+    ({} as Section);
+
+  const footerNewsletterSection =
+    sections.find((s) => s.section === SiteSections.FOOTER_NEWSLETTER) ||
+    ({} as Section);
+
+  const [fns, nns] = [footerNewsletterSection, newsNewsletterSection];
+
   const form = useForm<NewsletterFormValues>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: { email: "" },
@@ -59,7 +74,7 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({
         {...form.register("email")}
         name="email"
         className="w-full bg-white/10 p-3 text-white border-b border-white/30 focus:outline-none focus:bg-white/15 focus:border-white transition-colors text-sm placeholder:text-white/40"
-        placeholder="Your Email"
+        placeholder={fns.blurb || "Your Email"}
         required
       />
       <Button
@@ -89,7 +104,7 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({
         {...form.register("email")}
         name="email"
         className="p-3 text-sm border-b  border-white/30 ring-0 focus:ring-0 focus:outline-none focus:bg-white/5 focus:border-white transition-all"
-        placeholder="Corporate Email Address"
+        placeholder={nns.blurb || "Your Email"}
         required
       />
       <SiteButton
@@ -99,7 +114,7 @@ const NewsletterForm: React.FC<NewsletterFormProps> = ({
         disabled={isPending}
         loading={isPending}
       >
-        Subscribe
+        {nns.links?.[0].title || "Subscribe"}
       </SiteButton>
     </div>
   );
