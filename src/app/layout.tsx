@@ -11,7 +11,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "@/components/providers";
 import { defaultMetadata } from "@/components/metadata";
-import Lenis from "lenis";
+import { GoogleAnalytics } from "@next/third-parties/google";
+// import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
 // TODO: implement the blair font for all headers properly
@@ -55,6 +56,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const analyticsApiKey = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_API_KEY;
+
 export const metadata: Metadata = {
   title: defaultMetadata.baseTitle,
   description: defaultMetadata.description,
@@ -76,6 +79,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       )}
     >
       <body className="min-h-full flex flex-col">
+        <GoogleAnalytics gaId={analyticsApiKey!} />
         <Providers>{children}</Providers>
       </body>
     </html>
