@@ -253,8 +253,8 @@ const CareersClient = () => {
                     key={c}
                     onClick={() => setselectedDivision(c?.toLowerCase())}
                     className={cn(
-                      //  first:ms-60! first:md:ms-0! - this fixes the first item on mobile being partially hidden
-                      "shrink-0 p-1 text-white/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 first:ms-60! first:md:ms-0! transition-all duration-300",
+                      //  first:ms-60! first:sm:ms-0! - this fixes the first item on mobile being partially hidden
+                      "shrink-0 p-1 text-white/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 first:ms-60! first:sm:ms-0! transition-all duration-300",
                       c?.toLowerCase() === selectedDivision &&
                         "text-primary border-primary",
                     )}
