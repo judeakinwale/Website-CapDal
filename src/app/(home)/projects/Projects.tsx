@@ -128,7 +128,8 @@ const ProjectsClient = () => {
                     key={c}
                     onClick={() => setselectedCategory(c?.toLowerCase())}
                     className={cn(
-                      "shrink-0 p-1 text-black/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 transition-all duration-300",
+                      //  first:ms-60! - this fixes the first item on mobile being partially hidden
+                      "shrink-0 p-1 text-black/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 first:ms-60! transition-all duration-300",
                       c?.toLowerCase() === selectedCategory &&
                         "text-primary border-primary",
                     )}

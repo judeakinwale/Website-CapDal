@@ -36,7 +36,7 @@ const ServicesClient = () => {
     <div className="">
       <div className="flex flex-col gap-0">
         {/* hero */}
-        <div className="w-screen h-dvh flex justify-center bg-primary/30 text-white overflow-hidden">
+        <div className="w-screen h-svh flex justify-center bg-primary/30 text-white overflow-hidden">
           <div className="w-full flex flex-col gap-12">
             <Hero
               images={shs?.images!}

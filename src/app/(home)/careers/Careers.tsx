@@ -134,7 +134,7 @@ const CareersClient = () => {
     <div className="">
       <div className="flex flex-col gap-0">
         {/* hero */}
-        <div className="w-screen h-dvh flex justify-center bg-primary/30 text-white overflow-hidden">
+        <div className="w-screen h-svh flex justify-center bg-primary/30 text-white overflow-hidden">
           <div className="w-full flex flex-col gap-12">
             <Hero
               images={chs?.images!}
@@ -236,7 +236,7 @@ const CareersClient = () => {
           id="roles"
           className="flex justify-center bg-dark-tertiary py-16 text-white/80 overflow-hidden"
         >
-          <div className="container flex flex-col items-center gap-12">
+          <div className="container flex flex-col items-center gap-12 px-4">
             <div className="w-full flex flex-col md:flex-row gap-4 justify-between">
               <div className="flex flex-col gap-4 px-4 border-s-8 border-primary">
                 <h6 className="text-primary text-xs font-semibold uppercase tracking-widest">
@@ -253,7 +253,8 @@ const CareersClient = () => {
                     key={c}
                     onClick={() => setselectedDivision(c?.toLowerCase())}
                     className={cn(
-                      "shrink-0 p-1 text-white/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 transition-all duration-300",
+                      //  first:ms-60! - this fixes the first item on mobile being partially hidden
+                      "shrink-0 p-1 text-white/80 text-sm font-semibold border-b-2 border-transparent cursor-pointer hover:text-primary/80 first:ms-60! transition-all duration-300",
                       c?.toLowerCase() === selectedDivision &&
                         "text-primary border-primary",
                     )}
