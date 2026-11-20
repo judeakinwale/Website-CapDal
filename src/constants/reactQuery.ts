@@ -1,6 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-// TODO:
 // export const TRANSACTION_CACHE_KEY = "wallet_transactions";
 // export const TRANSACTION_TTL = 6 * 60 * 1000; // 6 minutes
 // export const QUERY_KEYS = {
